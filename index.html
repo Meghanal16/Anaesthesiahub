@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AnaesthesiaHub — Dr. Meghana</title>
+  <title>AnaesthesiaHub v5.0 — Dr. Meghana</title>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -30,14 +30,51 @@ const STYLE = `
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
   .fade{animation:fadeIn 0.25s ease}
   .chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.3px;}
+
+  @keyframes softFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-12px,0)}}
+  @keyframes glowPulse{0%,100%{box-shadow:0 0 0 rgba(14,165,233,0)}50%{box-shadow:0 0 35px rgba(14,165,233,.22)}}
+  @keyframes popIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+  @keyframes tabSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+  @keyframes s1{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes s2{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes s3{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes s4{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes s5{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes s6{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  @keyframes s7{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+  .module-card{position:relative;overflow:hidden;cursor:pointer;transition:transform .28s var(--ep),box-shadow .28s var(--ep);}
+  .module-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 55%);opacity:0;transition:opacity .28s var(--ep);pointer-events:none;border-radius:inherit;}
+  .module-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 20px 48px rgba(0,0,0,.3);}
+  .module-card:hover::before{opacity:1;}
+  .module-card:active{transform:scale(.99);}
+  .orb{animation:softFloat 10s ease-in-out infinite;}
+  .orb:nth-child(2){animation-delay:-2s;animation-duration:12s;}
+  .orb:nth-child(3){animation-delay:-4s;animation-duration:8s;}
+  .orb:nth-child(4){animation-delay:-6s;animation-duration:14s;}
+  .orb:nth-child(5){animation-delay:-3s;animation-duration:11s;}
+  .hero-badge{animation:glowPulse 4s ease-in-out infinite;}
+  .hs1{animation:s1 .55s .08s var(--ep) both;}
+  .hs2{animation:s2 .55s .16s var(--ep) both;}
+  .hs3{animation:s3 .55s .24s var(--ep) both;}
+  .hs4{animation:s4 .55s .33s var(--ep) both;}
+  .hs5{animation:s5 .55s .42s var(--ep) both;}
+  .hs6{animation:s6 .55s .52s var(--ep) both;}
+  .hs7{animation:s7 .55s .64s var(--ep) both;}
+  .pop-in{animation:popIn .28s var(--ep) both;}
+  .tab-content{animation:tabSlide .28s var(--ep) both;}
+  .interactive{transition:transform .22s var(--ep),box-shadow .22s var(--ep),background .22s var(--ep);}
+  .interactive:hover{transform:translateY(-2px);box-shadow:var(--sl);}
+  .interactive:active{transform:scale(.982);transition-duration:.11s;}
+  button{transition:transform .18s var(--ep),box-shadow .18s,background .18s var(--ep),color .18s;}
+  button:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.12);}
+  button:active:not(:disabled){transform:scale(.974);transition-duration:.1s;}
+  input:focus,select:focus{outline:none;box-shadow:0 0 0 3px rgba(14,165,233,.22);}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
 `;
 
-const T = {
-  bg:"#f0f4f8", card:"#ffffff", border:"#e2e8f0", borderDark:"#cbd5e1",
-  text:"#0f172a", sub:"#475569", muted:"#94a3b8", faint:"#f8fafc",
-  c1:"#0ea5e9", c2:"#10b981", c3:"#f59e0b", c4:"#ef4444", c5:"#8b5cf6",
-  ok:"#22c55e", warn:"#f59e0b", danger:"#ef4444",
-};
+const DARK_THEME={bg:"#0f172a",card:"#1e293b",border:"#334155",borderDark:"#475569",text:"#f1f5f9",sub:"#cbd5e1",muted:"#94a3b8",faint:"#162032",c1:"#38bdf8",c2:"#34d399",c3:"#fbbf24",c4:"#f87171",c5:"#a78bfa",ok:"#4ade80",warn:"#fbbf24",danger:"#f87171"};
+const LIGHT_THEME={bg:"#f0f4f8",card:"#ffffff",border:"#e2e8f0",borderDark:"#cbd5e1",text:"#0f172a",sub:"#475569",muted:"#94a3b8",faint:"#f8fafc",c1:"#0ea5e9",c2:"#10b981",c3:"#f59e0b",c4:"#ef4444",c5:"#8b5cf6",ok:"#22c55e",warn:"#f59e0b",danger:"#ef4444"};
+const T=Object.assign({},LIGHT_THEME);
 
 const MOD_META = [
   { id:"sop",      label:"SOPs",         icon:"📑", color:"#16a34a", bg:"#dcfce7", dark:"#14532d" },
@@ -46,26 +83,33 @@ const MOD_META = [
   { id:"drugs",    label:"Drug Doses",   icon:"💊", color:T.c1,      bg:"#e0f2fe", dark:"#0369a1" },
   { id:"infusion", label:"Infusion",     icon:"💧", color:T.c2,      bg:"#d1fae5", dark:"#065f46" },
   { id:"preop",    label:"Pre-op Risk",  icon:"📋", color:T.c3,      bg:"#fef3c7", dark:"#92400e" },
-  { id:"airway",   label:"Airway",       icon:"🫁", color:T.c4,      bg:"#fee2e2", dark:"#991b1b" },
+  { id:"airway",   label:"Airway",       icon:"💨", color:T.c4,      bg:"#fee2e2", dark:"#991b1b" },
   { id:"crisis",   label:"Crisis",       icon:"🚨", color:T.c5,      bg:"#ede9fe", dark:"#5b21b6" },
 ];
 
 const Card = ({ children, style={}, color, onClick }) => (
-  <div onClick={onClick} style={{
-    background:T.card, borderRadius:16,
-    border:`1.5px solid ${color ? color+"30" : T.border}`,
-    boxShadow: color ? `0 2px 12px ${color}15` : "0 1px 4px rgba(0,0,0,0.06)",
-    overflow:"hidden", ...style, cursor: onClick ? "pointer" : "default",
+  <div onClick={onClick} className={onClick?"interactive":""} style={{
+    background:T.card,
+    borderRadius:16,
+    border:`1.5px solid ${color ? color+"38" : T.border}`,
+    boxShadow: color ? `0 4px 24px ${color}1a` : "0 1px 6px rgba(0,0,0,.07)",
+    overflow:"hidden",
+    transition:"box-shadow .25s, transform .25s, border-color .22s",
+    ...style,
+    cursor: onClick ? "pointer" : "default",
   }}>{children}</div>
 );
 
 const SectionHeader = ({ icon, title, color, sub }) => (
   <div style={{ padding:"14px 16px", borderBottom:`1px solid ${T.border}`,
-    background:`linear-gradient(135deg,${color}08,transparent)` }}>
-    <div style={{ fontSize:17, fontWeight:800, color:T.text, display:"flex", alignItems:"center", gap:8 }}>
-      <span style={{ fontSize:20 }}>{icon}</span>{title}
+    background:`linear-gradient(135deg,${color}10,transparent 70%)`,
+    position:"relative" }}>
+    <div style={{ position:"absolute", left:0, top:0, bottom:0, width:3, background:`linear-gradient(180deg,${color},${color}60)`, borderRadius:"0 3px 3px 0" }}/>
+    <div style={{ fontSize:15, fontWeight:800, color:T.text, display:"flex", alignItems:"center", gap:8, paddingLeft:8 }}>
+      <div style={{ width:30, height:30, borderRadius:8, background:color+"18", border:`1px solid ${color}30`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, flexShrink:0 }}>{icon}</div>
+      {title}
     </div>
-    {sub && <div style={{ fontSize:11, color:T.sub, marginTop:2 }}>{sub}</div>}
+    {sub && <div style={{ fontSize:11, color:T.sub, marginTop:4, paddingLeft:8 }}>{sub}</div>}
   </div>
 );
 
@@ -73,42 +117,46 @@ const Chip = ({ children, color, bg }) => (
   <span className="chip" style={{ background: bg||color+"18", color, border:`1px solid ${color}35` }}>{children}</span>
 );
 
-const ProgressBar = ({ value, max, color, height=4 }) => (
-  <div style={{ height, background:"#e2e8f0", borderRadius:10, overflow:"hidden" }}>
+const ProgressBar = ({ value, max, color, height=6 }) => (
+  <div style={{ height, background:T.border, borderRadius:10, overflow:"hidden", boxShadow:"inset 0 1px 3px rgba(0,0,0,.12)" }}>
     <div style={{ width:`${Math.min((value/max)*100,100)}%`, height:"100%",
-      background:`linear-gradient(90deg,${color},${color}cc)`,
-      borderRadius:10, transition:"width 0.5s cubic-bezier(.34,1.56,.64,1)" }} />
+      background:`linear-gradient(90deg,${color}cc,${color})`,
+      borderRadius:10, transition:"width 0.6s cubic-bezier(.34,1.56,.64,1)",
+      boxShadow:`0 0 8px ${color}40` }} />
   </div>
 );
 
 const CheckItem = ({ label, sub, checked, onToggle, color }) => (
   <label onClick={onToggle} style={{
-    display:"flex", alignItems:"flex-start", gap:10, padding:"10px 12px",
-    borderRadius:10, cursor:"pointer", transition:"all 0.15s",
-    background: checked ? color+"0f" : T.faint,
-    border:`1.5px solid ${checked ? color+"50" : T.border}`,
+    display:"flex", alignItems:"flex-start", gap:10, padding:"11px 13px",
+    borderRadius:12, cursor:"pointer", transition:"all .2s",
+    background: checked ? color+"12" : T.faint,
+    border:`1.5px solid ${checked ? color+"45" : T.border}`,
+    boxShadow: checked ? `0 2px 12px ${color}18` : "none",
   }}>
     <div style={{
-      width:18, height:18, borderRadius:5, flexShrink:0, marginTop:1,
-      background: checked ? color : "#fff",
+      width:20, height:20, borderRadius:6, flexShrink:0, marginTop:1,
+      background: checked ? `linear-gradient(135deg,${color},${color}cc)` : T.card,
       border:`2px solid ${checked ? color : T.borderDark}`,
       display:"flex", alignItems:"center", justifyContent:"center",
-      transition:"all 0.15s", boxShadow: checked ? `0 0 6px ${color}50` : "none",
+      transition:"all .2s", boxShadow: checked ? `0 0 10px ${color}50` : "none",
     }}>
-      {checked && <span style={{ fontSize:10, color:"#fff", fontWeight:900, lineHeight:1 }}>✓</span>}
+      {checked && <span style={{ fontSize:11, color:"#fff", fontWeight:900, lineHeight:1 }}>✓</span>}
     </div>
     <div style={{ flex:1 }}>
-      <div style={{ fontSize:12, fontWeight:checked?700:500, color:checked?T.text:T.sub,
-        textDecoration:checked?"line-through":"none" }}>{label}</div>
-      {sub && <div style={{ fontSize:10, color:T.muted, marginTop:1 }}>{sub}</div>}
+      <div style={{ fontSize:12, fontWeight:checked?700:500, color:checked?T.text:T.sub, transition:"color .2s",
+        textDecoration:checked?"line-through":"none", opacity:checked?.75:1 }}>{label}</div>
+      {sub && <div style={{ fontSize:10, color:T.muted, marginTop:2 }}>{sub}</div>}
     </div>
   </label>
 );
 
 const WarnBox = ({ text, color="#ef4444" }) => (
-  <div style={{ background:color+"0d", border:`1px solid ${color}30`, borderRadius:10,
-    padding:"9px 12px", fontSize:11, color, display:"flex", gap:6, alignItems:"flex-start", marginTop:8 }}>
-    <span style={{ flexShrink:0 }}>⚠️</span><span style={{ lineHeight:1.6 }}>{text}</span>
+  <div style={{ background:color+"10", border:`1px solid ${color}35`, borderRadius:12,
+    padding:"10px 14px", fontSize:11, color, display:"flex", gap:8, alignItems:"flex-start", marginTop:8,
+    boxShadow:`0 2px 12px ${color}12` }}>
+    <div style={{ width:22,height:22,borderRadius:6,background:color+"20",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13 }}>⚠️</div>
+    <span style={{ lineHeight:1.7, flex:1 }}>{text}</span>
   </div>
 );
 
@@ -160,15 +208,15 @@ function DrugModule() {
   const calc=(dose,w)=>{if(!w||isNaN(w))return null; if(dose.fx)return dose.fx; const lo=(dose.mn*w).toFixed(1),hi=(dose.mx*w).toFixed(1); return lo===hi?`${lo} ${dose.u.replace("/kg","")}`:`${lo}–${hi} ${dose.u.replace("/kg","")}`};
   return(<div className="fade">
     <div style={{display:"flex",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-      <div style={{display:"flex",alignItems:"center",gap:8,background:"#fff",border:`2px solid ${color}40`,borderRadius:12,padding:"8px 14px",flex:"0 0 auto"}}>
+      <div style={{display:"flex",alignItems:"center",gap:8,background:T.card,border:`2px solid ${color}40`,borderRadius:12,padding:"8px 14px",flex:"0 0 auto"}}>
         <span>⚖️</span><span style={{fontSize:12,color:T.sub,fontWeight:600}}>Weight</span>
         <input type="number" placeholder="70" value={weight} onChange={e=>setWeight(e.target.value)} style={{background:"none",border:"none",outline:"none",color,fontSize:22,fontWeight:800,width:58,textAlign:"center",fontFamily:"'JetBrains Mono',monospace"}}/>
         <span style={{fontSize:12,color:T.muted,fontWeight:600}}>kg</span>
       </div>
-      <input type="text" placeholder="🔍  Search any drug…" value={search} onChange={e=>setSearch(e.target.value)} style={{flex:1,minWidth:150,background:"#fff",border:`1.5px solid ${T.border}`,borderRadius:12,padding:"10px 14px",color:T.text,fontSize:13,outline:"none"}}/>
+      <input type="text" placeholder="🔍  Search any drug…" value={search} onChange={e=>setSearch(e.target.value)} style={{flex:1,minWidth:150,background:T.card,border:`1.5px solid ${T.border}`,borderRadius:12,padding:"10px 14px",color:T.text,fontSize:13,outline:"none"}}/>
     </div>
     {!search.trim()&&<div style={{display:"flex",gap:6,marginBottom:14,overflowX:"auto",paddingBottom:4}}>
-      {DCATS.map(c=><button key={c.k} onClick={()=>setCat(c.k)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 14px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:cat===c.k?color:"#fff",color:cat===c.k?"#fff":T.sub,boxShadow:cat===c.k?`0 4px 12px ${color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{c.i} {c.l}</button>)}
+      {DCATS.map(c=><button key={c.k} onClick={()=>setCat(c.k)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 14px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:cat===c.k?color:T.card,color:cat===c.k?"#fff":T.sub,boxShadow:cat===c.k?`0 4px 12px ${color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{c.i} {c.l}</button>)}
     </div>}
     {weight&&<div style={{background:`${color}10`,border:`1.5px solid ${color}30`,borderRadius:10,padding:"8px 14px",marginBottom:12,fontSize:12,color,fontWeight:700}}>✅ Doses calculated for {weight} kg</div>}
     <div style={{display:"flex",flexDirection:"column",gap:8}}>
@@ -225,11 +273,11 @@ function InfusionModule(){
     <Card color={drug.col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
         <div><div style={{fontSize:18,fontWeight:900,color:T.text}}>{drug.i} {drug.n}</div><div style={{fontSize:11,color:T.sub,marginTop:3}}>{drug.ind}</div><div style={{marginTop:8}}><Chip color={drug.col}>{drug.mn}–{drug.mx} {drug.u}</Chip></div></div>
-        <button onClick={()=>setShowTips(!showTips)} style={{padding:"5px 10px",borderRadius:8,border:`1px solid ${T.border}`,background:"#fff",fontSize:11,color:T.sub,cursor:"pointer",fontFamily:"'Nunito',sans-serif"}}>{showTips?"▲":"▼"} tips</button>
+        <button onClick={()=>setShowTips(!showTips)} style={{padding:"5px 10px",borderRadius:8,border:`1px solid ${T.border}`,background:T.card,fontSize:11,color:T.sub,cursor:"pointer",fontFamily:"'Nunito',sans-serif"}}>{showTips?"▲":"▼"} tips</button>
       </div>
       {showTips&&<div style={{marginTop:10,borderTop:`1px solid ${T.border}`,paddingTop:10}}>{drug.tips.map((t,i)=><div key={i} style={{fontSize:11,color:T.sub,lineHeight:1.7}}>› {t}</div>)}</div>}
     </div></Card>
-    <div style={{display:"flex",gap:0,marginBottom:14,background:"#fff",border:`1.5px solid ${T.border}`,borderRadius:12,padding:4}}>
+    <div style={{display:"flex",gap:0,marginBottom:14,background:T.card,border:`1.5px solid ${T.border}`,borderRadius:12,padding:4}}>
       {[["fwd","⟶ Dose → Rate"],["rev","⟵ Rate → Dose"]].map(([k,l])=><button key={k} onClick={()=>setTab(k)} style={{flex:1,padding:"8px",border:"none",cursor:"pointer",borderRadius:9,fontSize:12,fontWeight:700,fontFamily:"'Nunito',sans-serif",background:tab===k?drug.col:"transparent",color:tab===k?"#fff":T.sub,transition:"all 0.2s"}}>{l}</button>)}
     </div>
     <Card style={{padding:16,marginBottom:12}}>
@@ -244,7 +292,7 @@ function InfusionModule(){
     </Card>
     <Card color={drug.col} style={{background:`linear-gradient(135deg,${drug.col}12,${drug.col}05)`,textAlign:"center",padding:"22px 18px"}}>
       <div style={{fontSize:10,color:T.muted,letterSpacing:3,textTransform:"uppercase",marginBottom:12,fontWeight:700}}>{tab==="fwd"?"▸ PUMP RATE":"▸ DOSE AT THIS RATE"}</div>
-      {tab==="fwd"?(rate!==null&&!isNaN(rate)?<><div style={{fontSize:56,fontWeight:900,color:drug.col,fontFamily:"'JetBrains Mono',monospace",lineHeight:1}}>{rate.toFixed(2)}</div><div style={{fontSize:14,color:T.sub,marginTop:4,fontWeight:700}}>mL / hr</div><div style={{display:"flex",justifyContent:"center",gap:8,flexWrap:"wrap",marginTop:16}}>{[1,2,4,8,12].map(h=><div key={h} style={{background:"#fff",border:`1.5px solid ${T.border}`,borderRadius:10,padding:"7px 12px",textAlign:"center"}}><div style={{fontSize:15,fontWeight:800,color:T.text,fontFamily:"'JetBrains Mono',monospace"}}>{(rate*h).toFixed(1)}</div><div style={{fontSize:9,color:T.muted}}>mL in {h}h</div></div>)}</div></>:<div style={{color:T.muted,fontSize:14,fontWeight:600}}>Enter values above to calculate</div>)
+      {tab==="fwd"?(rate!==null&&!isNaN(rate)?<><div style={{fontSize:56,fontWeight:900,color:drug.col,fontFamily:"'JetBrains Mono',monospace",lineHeight:1}}>{rate.toFixed(2)}</div><div style={{fontSize:14,color:T.sub,marginTop:4,fontWeight:700}}>mL / hr</div><div style={{display:"flex",justifyContent:"center",gap:8,flexWrap:"wrap",marginTop:16}}>{[1,2,4,8,12].map(h=><div key={h} style={{background:T.card,border:`1.5px solid ${T.border}`,borderRadius:10,padding:"7px 12px",textAlign:"center"}}><div style={{fontSize:15,fontWeight:800,color:T.text,fontFamily:"'JetBrains Mono',monospace"}}>{(rate*h).toFixed(1)}</div><div style={{fontSize:9,color:T.muted}}>mL in {h}h</div></div>)}</div></>:<div style={{color:T.muted,fontSize:14,fontWeight:600}}>Enter values above to calculate</div>)
       :(rvDose!==null&&!isNaN(rvDose)?<><div style={{fontSize:48,fontWeight:900,color:drug.col,fontFamily:"'JetBrains Mono',monospace"}}>{rvDose.toFixed(4)}</div><div style={{fontSize:14,color:T.sub,marginTop:4,fontWeight:700}}>{drug.u}</div></>:<div style={{color:T.muted,fontSize:14,fontWeight:600}}>Enter rate to back-calculate</div>)}
     </Card>
     <WarnBox text={drug.w} color={drug.col}/>
@@ -272,7 +320,7 @@ function PreopModule(){
   const sc=SCORES.find(s=>s.id===aid);const tot=sc.type==="calc"?sc.items.reduce((a,it)=>a+(chk[it.id]?1:0),0):0;const res=sc.type==="calc"?sc.interp(tot):null;const reset=()=>{setChk({});setOcl(null);};
   return(<div className="fade">
     <div style={{display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4}}>
-      {SCORES.map(s=><button key={s.id} onClick={()=>{setAid(s.id);reset();}} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 12px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:aid===s.id?s.col:"#fff",color:aid===s.id?"#fff":T.sub,boxShadow:aid===s.id?`0 4px 12px ${s.col}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{s.i} {s.n}</button>)}
+      {SCORES.map(s=><button key={s.id} onClick={()=>{setAid(s.id);reset();}} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 12px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:aid===s.id?s.col:T.card,color:aid===s.id?"#fff":T.sub,boxShadow:aid===s.id?`0 4px 12px ${s.col}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{s.i} {s.n}</button>)}
     </div>
     <Card color={sc.col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
       <div style={{fontSize:17,fontWeight:900,color:T.text}}>{sc.i} {sc.n}</div>
@@ -280,7 +328,7 @@ function PreopModule(){
       {sc.note&&<div style={{marginTop:8,background:`${sc.col}12`,border:`1px solid ${sc.col}30`,borderRadius:8,padding:"7px 10px",fontSize:11,color:T.sub}}>ℹ️ {sc.note}</div>}
     </div></Card>
     {sc.type==="cls"?<div style={{display:"flex",flexDirection:"column",gap:7}}>
-      {sc.cls.map(cl=><Card key={cl.g} onClick={()=>setOcl(ocl===cl.g?null:cl.g)} style={{background:ocl===cl.g?`${cl.col}08`:"#fff",transition:"all 0.2s"}} color={ocl===cl.g?cl.col:null}>
+      {sc.cls.map(cl=><Card key={cl.g} onClick={()=>setOcl(ocl===cl.g?null:cl.g)} style={{background:ocl===cl.g?`${cl.col}08`:T.card,transition:"all 0.2s"}} color={ocl===cl.g?cl.col:null}>
         <div style={{display:"flex",alignItems:"center",gap:12,padding:"12px 16px"}}>
           <div style={{width:36,height:36,borderRadius:9,background:`${cl.col}20`,border:`2px solid ${cl.col}60`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:900,color:cl.col,flexShrink:0}}>{cl.g}</div>
           <div style={{flex:1}}><div style={{fontSize:12,fontWeight:700,color:T.text}}>{cl.l}</div><div style={{display:"flex",gap:6,marginTop:3}}><Chip color={cl.col}>{cl.risk}</Chip><Chip color={T.muted} bg="#f1f5f9">{cl.mort}</Chip></div></div>
@@ -300,7 +348,7 @@ function PreopModule(){
         </div>
         <ProgressBar value={tot} max={sc.ms} color={res.col} height={6}/>
         <div style={{marginTop:10,fontSize:12,color:T.sub,borderLeft:`3px solid ${res.col}`,paddingLeft:10,lineHeight:1.7}}>{res.a}</div>
-        <button onClick={reset} style={{marginTop:10,padding:"5px 14px",borderRadius:8,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:11,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset</button>
+        <button onClick={reset} style={{marginTop:10,padding:"5px 14px",borderRadius:8,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:11,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset</button>
       </div></Card>}
     </div>}
   </div>);
@@ -316,9 +364,9 @@ function AirwayModule(){
   const color=T.c4;const tog=k=>setOp(p=>({...p,[k]:!p[k]}));
   return(<div className="fade">
     <div style={{display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4}}>
-      {[{id:"lemon",l:"LEMON/RODS",i:"🔍"},{id:"rsi",l:"RSI Checklist",i:"⚡"},{id:"algo",l:"DA Algorithm",i:"🗺️"},{id:"equip",l:"Equipment",i:"🧰"}].map(s=><button key={s.id} onClick={()=>setSec(s.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 13px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:sec===s.id?color:"#fff",color:sec===s.id?"#fff":T.sub,boxShadow:sec===s.id?`0 4px 12px ${color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{s.i} {s.l}</button>)}
+      {[{id:"lemon",l:"LEMON/RODS",i:"🔍"},{id:"rsi",l:"RSI Checklist",i:"⚡"},{id:"algo",l:"DA Algorithm",i:"🗺️"},{id:"equip",l:"Equipment",i:"🧰"}].map(s=><button key={s.id} onClick={()=>setSec(s.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 13px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:sec===s.id?color:T.card,color:sec===s.id?"#fff":T.sub,boxShadow:sec===s.id?`0 4px 12px ${color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{s.i} {s.l}</button>)}
     </div>
-    {sec==="lemon"&&<div className="fade">
+    {sec==="lemon"&&<div className="fade tab-content">
       <Card color={color} style={{marginBottom:12}}><SectionHeader icon="🔍" title="LEMON Airway Assessment" color={color} sub="Complete before every intubation"/></Card>
       {LEMON_DATA.map(it=><Card key={it.l} style={{marginBottom:8,transition:"all 0.2s"}} color={op[it.l]?it.col:null} onClick={()=>tog(it.l)}>
         <div style={{display:"flex",alignItems:"center",gap:12,padding:"12px 15px"}}>
@@ -330,19 +378,19 @@ function AirwayModule(){
       </Card>)}
       <Card><div style={{padding:"12px 15px"}}><div style={{fontSize:13,fontWeight:800,color:"#f59e0b",marginBottom:10}}>😷 RODS — Difficult BVM Prediction</div>{[["R","Restricted mouth opening (<3 fingers)","#ef4444"],["O","Obstruction / Obesity (BMI>26)","#f97316"],["D","Dentition — edentulous","#f59e0b"],["S","Stiff lungs / Snoring (COPD, OSA)","#10b981"]].map(([l,t,c])=><div key={l} style={{display:"flex",gap:10,marginBottom:6}}><div style={{width:24,height:24,borderRadius:6,background:`${c}20`,border:`2px solid ${c}60`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:900,color:c,flexShrink:0}}>{l}</div><span style={{fontSize:12,color:T.sub,lineHeight:1.6}}>{t}</span></div>)}</div></Card>
     </div>}
-    {sec==="rsi"&&<div className="fade">
+    {sec==="rsi"&&<div className="fade tab-content">
       <Card color={color} style={{marginBottom:12}}><SectionHeader icon="⚡" title="RSI Checklist — Complete ALL steps" color={color}/></Card>
       {RSI_DATA.map((ph,pi)=>{const done=ph.items.filter((_,ii)=>chk[`${pi}-${ii}`]).length;return(
         <Card key={pi} style={{marginBottom:10}}>
           <div style={{padding:"12px 16px 0"}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}><Chip color={ph.col}>{ph.l}</Chip><span style={{fontSize:11,color:done===ph.items.length?T.ok:T.sub,fontWeight:700,fontFamily:"'JetBrains Mono',monospace"}}>{done}/{ph.items.length}</span></div><ProgressBar value={done} max={ph.items.length} color={ph.col}/></div>
           <div style={{padding:"10px 12px",display:"flex",flexDirection:"column",gap:5}}>{ph.items.map((item,ii)=><CheckItem key={ii} label={item} checked={!!chk[`${pi}-${ii}`]} onToggle={()=>setChk(p=>({...p,[`${pi}-${ii}`]:!p[`${pi}-${ii}`]}))} color={ph.col}/>)}</div>
         </Card>);})}
-      <button onClick={()=>setChk({})} style={{padding:"7px 18px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
+      <button onClick={()=>setChk({})} style={{padding:"7px 18px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
     </div>}
-    {sec==="algo"&&<div className="fade">
+    {sec==="algo"&&<div className="fade tab-content">
       <Card color="#8b5cf6" style={{marginBottom:12}}><SectionHeader icon="🗺️" title="Difficult Airway Algorithm" color="#8b5cf6" sub="DAS/ASA guidelines — tap each step"/></Card>
       {ALGO_DATA.map((s,i)=><div key={s.id}>
-        <Card color={s.em?"#ef4444":(st===s.id?s.col:null)} style={{transition:"all 0.2s",background:s.em?"#fff5f5":(st===s.id?`${s.col}06`:"#fff")}} onClick={()=>setSt(st===s.id?null:s.id)}>
+        <Card color={s.em?"#ef4444":(st===s.id?s.col:null)} style={{transition:"all 0.2s",background:s.em?"#fff5f5":(st===s.id?`${s.col}06`:T.card)}} onClick={()=>setSt(st===s.id?null:s.id)}>
           <div style={{display:"flex",alignItems:"center",gap:12,padding:"12px 15px"}}>
             <div style={{width:30,height:30,borderRadius:"50%",background:`${s.col}20`,border:`2px solid ${s.col}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:900,color:s.col,flexShrink:0}}>{i+1}</div>
             <div style={{fontSize:13,fontWeight:800,color:s.em?"#ef4444":T.text,flex:1}}>{s.t}</div>
@@ -350,13 +398,13 @@ function AirwayModule(){
           </div>
           {st===s.id&&<div style={{padding:"0 15px 14px 57px"}} className="fade">
             <div style={{fontSize:12,color:T.sub,lineHeight:1.8,whiteSpace:"pre-line",marginBottom:s.q?12:0}}>{s.d}</div>
-            {s.q&&<div><div style={{fontSize:11,color:T.text,fontWeight:800,marginBottom:8}}>❓ {s.q}</div><div style={{display:"flex",gap:8,flexWrap:"wrap"}}><div style={{flex:1,minWidth:120,background:"#f0fdf4",border:"1.5px solid #86efac",borderRadius:10,padding:"9px 12px"}}><div style={{fontSize:9,color:T.ok,letterSpacing:1,fontWeight:700,textTransform:"uppercase",marginBottom:3}}>✅ YES</div><div style={{fontSize:11,color:T.sub,lineHeight:1.6}}>{s.yes}</div></div><div style={{flex:1,minWidth:120,background:"#fff5f5",border:"1.5px solid #fca5a5",borderRadius:10,padding:"9px 12px"}}><div style={{fontSize:9,color:T.danger,letterSpacing:1,fontWeight:700,textTransform:"uppercase",marginBottom:3}}>❌ NO</div><div style={{fontSize:11,color:T.sub,lineHeight:1.6}}>{s.no}</div></div></div></div>}
+            {s.q&&<div><div style={{fontSize:11,color:T.text,fontWeight:800,marginBottom:8}}>❓ {s.q}</div><div style={{display:"flex",gap:8,flexWrap:"wrap"}}><div style={{flex:1,minWidth:120,background:T.faint,border:"1.5px solid #86efac",borderRadius:10,padding:"9px 12px"}}><div style={{fontSize:9,color:T.ok,letterSpacing:1,fontWeight:700,textTransform:"uppercase",marginBottom:3}}>✅ YES</div><div style={{fontSize:11,color:T.sub,lineHeight:1.6}}>{s.yes}</div></div><div style={{flex:1,minWidth:120,background:"#fff5f5",border:"1.5px solid #fca5a5",borderRadius:10,padding:"9px 12px"}}><div style={{fontSize:9,color:T.danger,letterSpacing:1,fontWeight:700,textTransform:"uppercase",marginBottom:3}}>❌ NO</div><div style={{fontSize:11,color:T.sub,lineHeight:1.6}}>{s.no}</div></div></div></div>}
           </div>}
         </Card>
         {i<ALGO_DATA.length-1&&<div style={{display:"flex",paddingLeft:29,height:10}}><div style={{width:2,height:"100%",background:`${s.col}40`,borderRadius:2}}/></div>}
       </div>)}
     </div>}
-    {sec==="equip"&&<div className="fade">
+    {sec==="equip"&&<div className="fade tab-content">
       <Card color="#10b981" style={{marginBottom:12}}><SectionHeader icon="🧰" title="Airway Equipment Reference" color="#10b981"/></Card>
       {EQUIP_DATA.map((cat,ci)=><Card key={ci} style={{marginBottom:10}}>
         <div style={{padding:"12px 16px 8px"}}><Chip color={cat.col}>{cat.cat}</Chip></div>
@@ -375,7 +423,7 @@ const CRISIS_DATA=[
   {id:"mh",n:"Malignant Hyperthermia",i:"🔥",col:"#ef4444",trigger:"Volatile agents (sevo/iso/des), succinylcholine",warn:"LIFE-THREATENING. Temp rises 1°C/5 min. Act immediately.",signs:["↑ EtCO₂ (earliest sign)","Masseter spasm / generalised rigidity","Tachycardia, hypertension, arrhythmias","Rapidly rising core temperature","Mixed acidosis, hyperkalaemia","Cola-coloured urine (myoglobinuria)"],steps:[{ph:"IMMEDIATE",col:"#ef4444",acts:["STOP all volatile agents NOW","CALL FOR HELP — activate MH protocol","Switch to TIVA: propofol + 100% O₂","Hyperventilate at 2–3× minute volume","DANTROLENE 2.5 mg/kg IV STAT — repeat every 5 min to 10 mg/kg","Change breathing circuit and tubing"]},{ph:"MONITORING & LABS",col:"#f97316",acts:["Arterial line for ABG","Urinary catheter — aim UO >1 mL/kg/hr","12-lead ECG","Blood: ABG, U&E, CK, LFT, coag, FBC","Core temp probe — active cooling to <38.5°C"]},{ph:"TREAT COMPLICATIONS",col:"#f59e0b",acts:["Hyperthermia: cold IV fluid, ice packs, cooling blanket","Hyperkalaemia: CaCl₂ 10mg/kg + dextrose + insulin","Acidosis: NaHCO₃ 1–2 mmol/kg if pH <7.1","Arrhythmias: amiodarone (AVOID Ca²⁺ blockers)","DIC: FFP, cryoprecipitate, platelets"]},{ph:"POST-ACUTE",col:"#22c55e",acts:["Dantrolene 1mg/kg IV every 6h × 24–48 hrs","ICU admission","Refer patient + family for MH testing","Notify NAMH registry","Incident report + debrief"]}]},
   {id:"last",n:"LAST — Local Anaesthetic Toxicity",i:"💊",col:"#8b5cf6",trigger:"Excessive LA dose, intravascular injection, rapid absorption",warn:"Bupivacaine most cardiotoxic. Symptoms delayed 15–60 min. Intralipid must be in every anaesthetic area.",signs:["CNS: perioral tingling, tinnitus, metallic taste","CNS excitation: agitation, seizures","CVS: bradycardia, VT/VF","CVS collapse can occur without CNS warning"],steps:[{ph:"IMMEDIATE",col:"#ef4444",acts:["STOP injecting LA","CALL FOR HELP — activate LAST protocol","100% O₂ — intubate if needed","Seizure: midazolam 0.05mg/kg IV","START 20% Intralipid WITHOUT DELAY"]},{ph:"INTRALIPID 20%",col:"#8b5cf6",acts:["BOLUS: 1.5 mL/kg IV over 1 min","If no response: repeat × 2 every 5 min","INFUSION: 0.25 mL/kg/min until stable","Continue ≥10 min after stability","Max cumulative: 12 mL/kg"]},{ph:"CARDIAC ARREST",col:"#ef4444",acts:["CPR immediately — continue throughout","Adrenaline: REDUCED 10–100 mcg IV (NOT 1mg)","AVOID: vasopressin, Ca²⁺ blockers, beta-blockers","Continue lipid emulsion during CPR","Prolonged resuscitation — up to 60+ min"]},{ph:"POST-EVENT",col:"#22c55e",acts:["ICU minimum 12 hrs","Serial ECGs, CK monitoring","Report to national LAST registry","MedicAlert bracelet if indicated"]}]},
   {id:"anaphylaxis",n:"Anaphylaxis",i:"🚨",col:"#f59e0b",trigger:"NMBAs (60%), antibiotics, latex, chlorhexidine, colloids, contrast",warn:"Most occurs within 5 min of induction. Rash may be absent in severe CVS collapse.",signs:["CVS collapse — tachycardia + hypotension","Erythema, urticaria, angioedema","Bronchospasm — high peak pressures","Flushing, conjunctival injection"],steps:[{ph:"IMMEDIATE",col:"#ef4444",acts:["STOP all potential trigger agents","CALL FOR HELP","100% O₂ — intubate early if angioedema","Supine, legs elevated","ADRENALINE: 0.5–1mg IM (1:1000) OR 10–100mcg IV — repeat every 1–2 min","IV × 2: 500mL–1L crystalloid FAST"]},{ph:"SECONDARY",col:"#f97316",acts:["Adrenaline infusion 0.05–0.5 mcg/kg/min if hypotension persists","Chlorphenamine 10mg IV slow","Hydrocortisone 200mg IV","Salbutamol 5mg nebulised for bronchospasm","Glucagon 1–2mg IV if on beta-blockers"]},{ph:"TRYPTASE SAMPLES",col:"#f59e0b",acts:["Sample 1: AT TIME of reaction","Sample 2: 1–2 hours after","Sample 3: 24 hours (baseline)","Document ALL drugs + timing","Allergy referral in 4–6 weeks"]},{ph:"POST-EVENT",col:"#22c55e",acts:["Observe 6–12 hrs HDU/ICU (biphasic risk)","Allergy/immunology referral","MedicAlert bracelet","Anapen/EpiPen × 2 + action plan","Yellow card / adverse event reporting"]}]},
-  {id:"cico",n:"CICO — Can't Intubate Can't Oxygenate",i:"🫁",col:"#ef4444",trigger:"Failed intubation + failed BVM + failed SGAD ventilation",warn:"IMMEDIATELY LIFE-THREATENING. Brain injury in 4–5 min. Act decisively NOW.",signs:["SpO₂ falling despite all efforts","≥3 failed laryngoscopy attempts","SGAD ventilation failed","BVM ventilation impossible"],steps:[{ph:"DECLARE CICO",col:"#ef4444",acts:["State: 'THIS IS A CICO EMERGENCY'","Call ENT/surgeon IMMEDIATELY","Continue best BVM (2-person, jaw thrust, OPA/NPA)","Prepare scalpel cricothyroidotomy NOW"]},{ph:"SCALPEL CRICOTHYROIDOTOMY",col:"#f43f5e",acts:["Identify CTM: midline depression between thyroid and cricoid","Extend neck — laryngeal handshake to stabilise","SCALPEL No.22: horizontal stab through skin AND CTM","Insert bougie at 45° caudal into trachea","Railroad 6.0mm cuffed ETT — advance 4–5cm past CTM","Inflate cuff → ventilate → confirm EtCO₂ → secure"]},{ph:"NEEDLE TECHNIQUE (no scalpel)",col:"#f97316",acts:["14G cannula through CTM at 45° caudal","Aspirate air freely to confirm placement","Jet ventilation: 1 sec in, 4–5 sec out","NOT definitive — bridge to surgical airway only"]},{ph:"POST-FONA",col:"#22c55e",acts:["Confirm air entry + EtCO₂","Formal tracheostomy when stable","Critical incident report","Psychological support for team"]}]},
+  {id:"cico",n:"CICO — Can't Intubate Can't Oxygenate",i:"💨",col:"#ef4444",trigger:"Failed intubation + failed BVM + failed SGAD ventilation",warn:"IMMEDIATELY LIFE-THREATENING. Brain injury in 4–5 min. Act decisively NOW.",signs:["SpO₂ falling despite all efforts","≥3 failed laryngoscopy attempts","SGAD ventilation failed","BVM ventilation impossible"],steps:[{ph:"DECLARE CICO",col:"#ef4444",acts:["State: 'THIS IS A CICO EMERGENCY'","Call ENT/surgeon IMMEDIATELY","Continue best BVM (2-person, jaw thrust, OPA/NPA)","Prepare scalpel cricothyroidotomy NOW"]},{ph:"SCALPEL CRICOTHYROIDOTOMY",col:"#f43f5e",acts:["Identify CTM: midline depression between thyroid and cricoid","Extend neck — laryngeal handshake to stabilise","SCALPEL No.22: horizontal stab through skin AND CTM","Insert bougie at 45° caudal into trachea","Railroad 6.0mm cuffed ETT — advance 4–5cm past CTM","Inflate cuff → ventilate → confirm EtCO₂ → secure"]},{ph:"NEEDLE TECHNIQUE (no scalpel)",col:"#f97316",acts:["14G cannula through CTM at 45° caudal","Aspirate air freely to confirm placement","Jet ventilation: 1 sec in, 4–5 sec out","NOT definitive — bridge to surgical airway only"]},{ph:"POST-FONA",col:"#22c55e",acts:["Confirm air entry + EtCO₂","Formal tracheostomy when stable","Critical incident report","Psychological support for team"]}]},
   {id:"bronchospasm",n:"Severe Bronchospasm",i:"💨",col:"#0ea5e9",trigger:"Asthma/COPD, light anaesthesia at intubation, aspiration, anaphylaxis",warn:"Silent chest = zero airflow = critical. High peak pressures + normal plateau = bronchospasm.",signs:["High/rising peak airway pressures","Prolonged expiry — shark-fin capnograph","Wheeze (may be ABSENT in severe cases)","Decreasing SpO₂, rising EtCO₂"],steps:[{ph:"IMMEDIATE",col:"#0ea5e9",acts:["Deepen: propofol 1mg/kg IV OR increase volatile (sevo bronchodilates)","100% O₂ — extend expiratory time (I:E 1:3+)","Manual ventilation — assess compliance","Rule out: endobronchial intubation, kinked ETT","Disconnect — allow passive expiration if gas trapping"]},{ph:"PHARMACOLOGICAL",col:"#f59e0b",acts:["SALBUTAMOL: 2.5–5mg nebulised OR 100–200mcg MDI into circuit","ADRENALINE: 10–100mcg IV if life-threatening","IPRATROPIUM: 0.5mg nebulised","IV AMINOPHYLLINE: 5mg/kg over 20–30 min","IV HYDROCORTISONE: 200mg stat","IV MAGNESIUM: 2g over 20 min"]},{ph:"VENTILATION STRATEGY",col:"#10b981",acts:["Permissive hypercapnia: accept PaCO₂ 50–70 mmHg","RR 8–10/min for full expiration","TV 6–8 mL/kg lung-protective","Minimum PEEP","Heliox 80:20 if available"]},{ph:"REFRACTORY",col:"#ef4444",acts:["KETAMINE infusion 1–2mg/kg/hr (bronchodilatory)","Sevoflurane 2–3 MAC","ECMO if no response","ICU + respiratory review"]}]},
   {id:"arrest",n:"Perioperative Cardiac Arrest",i:"💔",col:"#ec4899",trigger:"Hypoxia, hypovolaemia, tension PTX, drug errors, anaphylaxis, LAST, MI, electrolytes",warn:"Often has REVERSIBLE cause. Treat H's & T's simultaneously with CPR.",signs:["Loss of pulse / arterial waveform","EtCO₂ drops to near zero","ECG: VF, pVT, PEA, asystole","Profound hypotension → arrest"],steps:[{ph:"BASIC LIFE SUPPORT",col:"#ef4444",acts:["CALL CARDIAC ARREST TEAM","CPR: 100–120/min, 5–6 cm depth, full recoil","100% O₂ — 10 breaths/min if intubated","IV/IO access","Defibrillator pads — analyse rhythm","Assign roles: compressor, airway, drugs, timekeeper"]},{ph:"SHOCKABLE: VF / pVT",col:"#f43f5e",acts:["DEFIBRILLATE: 200J biphasic","Resume CPR immediately × 2 min","ADRENALINE 1mg IV after 3rd shock → every 3–5 min","AMIODARONE 300mg IV after 3rd shock","Repeat: 2 min CPR → rhythm check → shock"]},{ph:"NON-SHOCKABLE: PEA/ASYSTOLE",col:"#f97316",acts:["ADRENALINE 1mg IV immediately → every 3–5 min","CPR continuous if intubated","Treat ALL reversible causes urgently"]},{ph:"H's & T's",col:"#f59e0b",acts:["HYPOXIA → airway + 100% O₂","HYPOVOLAEMIA → rapid IV fluid","HYPO/HYPERKALAEMIA → correct electrolytes","HYPOTHERMIA → warming","TENSION PTX → needle decompression","TAMPONADE → pericardiocentesis","TOXINS → specific antidotes","THROMBOSIS (PE/MI) → thrombolysis/PCI"]},{ph:"ROSC",col:"#22c55e",acts:["12-lead ECG — exclude STEMI","SpO₂ 94–98%, PaCO₂ 35–45 mmHg","Targeted Temperature Management if indicated","ICU post-resuscitation care","Identify + treat precipitating cause","Family notification + team debrief"]}]},
 ];
@@ -390,7 +438,7 @@ function CrisisModule(){
   </div>);
   const cr=CRISIS_DATA.find(c=>c.id===sel);const tot=cr.steps.reduce((a,s)=>a+s.acts.length,0);const done=cr.steps.reduce((a,s,si)=>a+s.acts.filter((_,ai)=>chk[`${si}-${ai}`]).length,0);const pct=Math.round((done/tot)*100);
   return(<div className="fade">
-    <button onClick={()=>setSel(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:"#fff",color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← Back to All Crises</button>
+    <button onClick={()=>setSel(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:T.card,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← Back to All Crises</button>
     <Card color={cr.col} style={{marginBottom:12}}><div style={{padding:"16px"}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
         <div style={{flex:1,marginRight:12}}><div style={{fontSize:20,fontWeight:900,color:T.text,marginBottom:4}}>{cr.i} {cr.n}</div><div style={{fontSize:11,color:T.sub}}><strong>Triggers:</strong> {cr.trigger}</div></div>
@@ -408,92 +456,294 @@ function CrisisModule(){
         <div style={{padding:"12px 16px 8px"}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}><div style={{display:"flex",alignItems:"center",gap:8}}>{allDone&&<span>✅</span>}<Chip color={ph.col}>{ph.ph}</Chip></div><span style={{fontSize:11,color:allDone?T.ok:T.sub,fontWeight:700,fontFamily:"'JetBrains Mono',monospace"}}>{pd}/{ph.acts.length}</span></div><ProgressBar value={pd} max={ph.acts.length} color={ph.col} height={5}/></div>
         <div style={{padding:"4px 12px 12px",display:"flex",flexDirection:"column",gap:5}}>{ph.acts.map((act,ai)=><CheckItem key={ai} label={act} checked={!!chk[`${si}-${ai}`]} onToggle={()=>setChk(p=>({...p,[`${si}-${ai}`]:!p[`${si}-${ai}`]}))} color={ph.col}/>)}</div>
       </Card>);})}
-    <button onClick={()=>setChk({})} style={{padding:"7px 18px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset Checklist</button>
+    <button onClick={()=>setChk({})} style={{padding:"7px 18px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset Checklist</button>
   </div>);
 }
 
 function App(){
   const [active,setActive]=useState("home");
+  const [dark,setDark]=useState(false);
+  Object.assign(T,dark?DARK_THEME:LIGHT_THEME);
   const COMPS={sop:SOPModule,pae:PAEModule,guide:GuideModule,drugs:DrugModule,infusion:InfusionModule,preop:PreopModule,airway:AirwayModule,crisis:CrisisModule};
   if(active==="home")return(<>
     <style>{STYLE}</style>
-    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f172a 100%)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"20px",fontFamily:"'Nunito',sans-serif",position:"relative",overflow:"hidden"}}>
-      <div style={{position:"fixed",inset:0,overflow:"hidden",pointerEvents:"none",zIndex:0}}>
-        {[...Array(5)].map((_,i)=><div key={i} style={{position:"absolute",borderRadius:"50%",opacity:0.06,width:[300,200,400,150,250][i],height:[300,200,400,150,250][i],background:["#38bdf8","#10b981","#f59e0b","#ef4444","#8b5cf6"][i],left:["10%","70%","40%","80%","5%"][i],top:["5%","10%","60%","70%","40%"][i],filter:"blur(60px)"}}/>)}
+    <style>{`
+      @keyframes twinkle{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+      @keyframes drift{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(-100vh) translateX(20px)}}
+      @keyframes heroGlow{0%,100%{text-shadow:0 0 40px rgba(56,189,248,.3),0 0 80px rgba(56,189,248,.1)}50%{text-shadow:0 0 60px rgba(56,189,248,.5),0 0 120px rgba(56,189,248,.2)}}
+      @keyframes badgePop{0%{transform:scale(.85) translateY(8px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+      @keyframes lineGrow{from{width:0;opacity:0}to{width:60px;opacity:1}}
+      @keyframes cardFloat1{0%,100%{transform:translateY(0px) rotateY(0deg)}50%{transform:translateY(-6px) rotateY(1deg)}}
+      @keyframes cardFloat2{0%,100%{transform:translateY(0px) rotateY(0deg)}50%{transform:translateY(-4px) rotateY(-1deg)}}
+      @keyframes meshPulse{0%,100%{opacity:.6}50%{opacity:1}}
+      @keyframes neonFlick{0%,95%,100%{opacity:1}96%,98%{opacity:.4}}
+      @keyframes particleDrift{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:1}90%{opacity:.4}100%{transform:translateY(-80vh) translateX(40px);opacity:0}}
+      @keyframes rotate360{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+      @keyframes counterUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      .home-card-3d{
+        position:relative;overflow:hidden;cursor:pointer;
+        transition:transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease;
+        transform-style:preserve-3d;
+        will-change:transform;
+      }
+      .home-card-3d:hover{
+        transform:translateY(-8px) scale(1.025) rotateX(3deg);
+        box-shadow:0 32px 64px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06) !important;
+      }
+      .home-card-3d:active{transform:scale(.98) translateY(-2px);}
+      .home-card-3d::before{
+        content:'';position:absolute;inset:0;
+        background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.02) 40%,transparent 70%);
+        opacity:0;transition:opacity .35s;pointer-events:none;border-radius:inherit;z-index:1;
+      }
+      .home-card-3d:hover::before{opacity:1;}
+      .home-card-3d::after{
+        content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+        background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+        opacity:0;transition:opacity .35s;
+      }
+      .home-card-3d:hover::after{opacity:1;}
+      .neon-line{animation:neonFlick 8s ease-in-out infinite;}
+      .hero-title-text{animation:heroGlow 4s ease-in-out infinite;}
+    `}</style>
+
+    <div style={{minHeight:"100vh",background:"#04080f",fontFamily:"'Nunito',sans-serif",position:"relative",overflow:"hidden",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-start"}}>
+
+      {/* ══ LAYER 0: Particle star field ══ */}
+      <div style={{position:"fixed",inset:0,zIndex:0,pointerEvents:"none"}}>
+        {[...Array(60)].map((_,i)=>(
+          <div key={i} style={{
+            position:"absolute",
+            width: i%5===0?2:1,
+            height: i%5===0?2:1,
+            borderRadius:"50%",
+            background: i%7===0?"#38bdf8": i%5===0?"#a78bfa":"#fff",
+            left:`${(i*17.3)%100}%`,
+            top:`${(i*13.7)%100}%`,
+            opacity: .15 + (i%4)*.12,
+            animation:`twinkle ${2+i%4}s ${i*.15}s ease-in-out infinite`,
+          }}/>
+        ))}
       </div>
-      <div style={{position:"relative",zIndex:1,textAlign:"center",maxWidth:480,width:"100%"}}>
-        <div style={{width:80,height:80,borderRadius:22,background:"linear-gradient(135deg,#0ea5e9,#0284c7)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,margin:"0 auto 20px",boxShadow:"0 0 40px rgba(14,165,233,0.4)"}}>⚕️</div>
-        <h1 style={{fontSize:36,fontWeight:900,color:"#fff",letterSpacing:-1,marginBottom:4}}>Anaesthesia<span style={{color:"#38bdf8"}}>Hub</span></h1>
-        <p style={{fontSize:13,color:"#94a3b8",letterSpacing:2,textTransform:"uppercase",marginBottom:8,fontWeight:600}}>Educational Clinical Reference Platform</p>
-        <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(56,189,248,0.12)",border:"1.5px solid rgba(56,189,248,0.3)",borderRadius:30,padding:"8px 18px",marginBottom:28}}>
-          <span style={{fontSize:18}}>👩‍⚕️</span><span style={{fontSize:13,color:"#38bdf8",fontWeight:800}}>Created by Dr. Meghana</span><span style={{fontSize:11,color:"#64748b"}}>· Anaesthesia PG</span>
+
+      {/* ══ LAYER 1: Mesh gradient ══ */}
+      <div style={{position:"fixed",inset:0,zIndex:1,pointerEvents:"none",
+        background:"radial-gradient(ellipse 90% 70% at 15% 10%, rgba(14,165,233,.15) 0%,transparent 55%), radial-gradient(ellipse 70% 60% at 85% 80%, rgba(139,92,246,.12) 0%,transparent 55%), radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16,185,129,.06) 0%,transparent 60%)",
+        animation:"meshPulse 6s ease-in-out infinite"
+      }}/>
+
+      {/* ══ LAYER 2: Neon grid lines ══ */}
+      <div style={{position:"fixed",inset:0,zIndex:1,pointerEvents:"none",opacity:.035,
+        backgroundImage:"linear-gradient(rgba(56,189,248,.8) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.8) 1px,transparent 1px)",
+        backgroundSize:"60px 60px"}}/>
+
+      {/* ══ LAYER 3: Large floating orbs ══ */}
+      <div style={{position:"fixed",inset:0,zIndex:1,overflow:"hidden",pointerEvents:"none"}}>
+        {[
+          {s:500,c:"#0ea5e9",l:"-10%",t:"-15%",blur:120,op:.08},
+          {s:400,c:"#8b5cf6",l:"75%",t:"5%",blur:100,op:.07},
+          {s:600,c:"#10b981",l:"30%",t:"60%",blur:140,op:.05},
+          {s:300,c:"#f59e0b",l:"85%",t:"70%",blur:80,op:.07},
+          {s:250,c:"#ef4444",l:"-5%",t:"55%",blur:80,op:.05},
+        ].map((o,i)=>(
+          <div key={i} className="orb" style={{position:"absolute",borderRadius:"50%",
+            width:o.s,height:o.s,background:o.c,left:o.l,top:o.t,
+            filter:`blur(${o.blur}px)`,opacity:o.op}}/>
+        ))}
+      </div>
+
+      {/* ══ CONTENT ══ */}
+      <div style={{position:"relative",zIndex:10,width:"100%",maxWidth:520,padding:"32px 18px 28px",display:"flex",flexDirection:"column",alignItems:"center"}}>
+
+        {/* Toggle */}
+        <div style={{alignSelf:"flex-end",marginBottom:16}}>
+          <button onClick={()=>setDark(d=>!d)} style={{background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",borderRadius:20,padding:"6px 14px",cursor:"pointer",fontSize:11,fontWeight:700,color:"#64748b",fontFamily:"Nunito,sans-serif",letterSpacing:.5,backdropFilter:"blur(10px)"}}>
+            {dark?"☀️ Light":"🌙 Dark"}
+          </button>
         </div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
-          {/* SOPs — full width */}
-          <div style={{gridColumn:"1 / -1",background:"rgba(22,163,74,0.15)",border:"1.5px solid rgba(22,163,74,0.35)",borderRadius:14,padding:"14px",textAlign:"left",backdropFilter:"blur(10px)"}}>
-            <div style={{fontSize:22,marginBottom:4}}>📑</div>
-            <div style={{fontSize:13,fontWeight:800,color:"#bbf7d0"}}>SOPs — OT Flow · Regional · Spinal</div>
-            <div style={{fontSize:10,color:"#86efac",marginTop:2}}>3 step-by-step procedural protocols</div>
-            <div style={{width:28,height:2,background:"#16a34a",borderRadius:2,marginTop:6}}/>
+
+        {/* ── HERO SECTION ── */}
+        <div className="hs1" style={{position:"relative",marginBottom:20,display:"flex",flexDirection:"column",alignItems:"center"}}>
+          {/* Rotating ring */}
+          <div style={{position:"absolute",width:110,height:110,borderRadius:"50%",border:"1px solid rgba(14,165,233,.2)",top:"50%",left:"50%",transform:"translate(-50%,-50%)",animation:"rotate360 12s linear infinite",pointerEvents:"none"}}/>
+          <div style={{position:"absolute",width:90,height:90,borderRadius:"50%",border:"1px dashed rgba(56,189,248,.15)",top:"50%",left:"50%",transform:"translate(-50%,-50%)",animation:"rotate360 8s linear infinite reverse",pointerEvents:"none"}}/>
+          {/* Logo */}
+          <div style={{width:76,height:76,borderRadius:24,
+            background:"linear-gradient(135deg,#0ea5e9 0%,#0369a1 100%)",
+            display:"flex",alignItems:"center",justifyContent:"center",fontSize:36,
+            boxShadow:"0 0 0 1px rgba(14,165,233,.3), 0 20px 60px rgba(14,165,233,.45), inset 0 1px 0 rgba(255,255,255,.25)",
+            position:"relative",zIndex:2}}>
+            ⚕️
+            <div style={{position:"absolute",inset:0,borderRadius:24,background:"linear-gradient(135deg,rgba(255,255,255,.2),transparent 60%)",pointerEvents:"none"}}/>
           </div>
-          {/* PAE */}
-          <div style={{gridColumn:"1 / -1",background:"rgba(6,182,212,0.12)",border:"1.5px solid rgba(6,182,212,0.3)",borderRadius:14,padding:"14px",textAlign:"left",backdropFilter:"blur(10px)"}}>
-            <div style={{fontSize:22,marginBottom:4}}>🩺</div>
-            <div style={{fontSize:13,fontWeight:800,color:"#a5f3fc"}}>PAE — Pre-Anaesthetic Evaluation</div>
-            <div style={{fontSize:10,color:"#67e8f9",marginTop:2}}>H&P · Examination · Investigations · Plan · Consent · NPO</div>
-            <div style={{width:28,height:2,background:"#06b6d4",borderRadius:2,marginTop:6}}/>
+        </div>
+
+        {/* Title */}
+        <h1 className="hs2 hero-title-text" style={{fontSize:42,fontWeight:900,letterSpacing:-2,margin:"0 0 6px",lineHeight:1,textAlign:"center",color:"#f8fafc"}}>
+          Anaesthesia<span style={{color:"#38bdf8"}}>Hub</span>
+        </h1>
+
+        {/* Animated underline */}
+        <div className="hs2" style={{width:60,height:3,background:"linear-gradient(90deg,#0ea5e9,#8b5cf6)",borderRadius:4,marginBottom:10,animation:"lineGrow .8s .3s var(--ep) both"}}/>
+
+        {/* Subtitle */}
+        <p className="hs3" style={{fontSize:11,color:"#475569",letterSpacing:3,textTransform:"uppercase",marginBottom:16,fontWeight:700,textAlign:"center"}}>
+          Educational Clinical Reference
+        </p>
+
+        {/* Author badge */}
+        <div className="hs4 hero-badge" style={{display:"inline-flex",alignItems:"center",gap:8,
+          background:"rgba(56,189,248,.08)",border:"1px solid rgba(56,189,248,.22)",
+          borderRadius:30,padding:"8px 20px",marginBottom:28,
+          backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",
+          boxShadow:"0 4px 24px rgba(14,165,233,.12)"}}>
+          <div style={{width:28,height:28,borderRadius:10,background:"linear-gradient(135deg,#0ea5e9,#8b5cf6)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,boxShadow:"0 2px 8px rgba(14,165,233,.3)"}}>👩‍⚕️</div>
+          <div>
+            <div style={{fontSize:13,color:"#38bdf8",fontWeight:800,lineHeight:1.2}}>Dr. Meghana</div>
+            <div style={{fontSize:9,color:"#475569",fontWeight:600,letterSpacing:1}}>ANAESTHESIA PG</div>
           </div>
-          {/* Guide */}
-          <div style={{gridColumn:"1 / -1",background:"rgba(233,30,140,0.12)",border:"1.5px solid rgba(233,30,140,0.3)",borderRadius:14,padding:"14px",textAlign:"left",backdropFilter:"blur(10px)"}}>
-            <div style={{fontSize:22,marginBottom:4}}>📚</div>
-            <div style={{fontSize:13,fontWeight:800,color:"#f9a8d4"}}>Complete Guide — Types · Decision Tree · Body Map · Compare</div>
-            <div style={{fontSize:10,color:"#f472b6",marginTop:2}}>6 interactive reference tools</div>
-            <div style={{width:28,height:2,background:"#e91e8c",borderRadius:2,marginTop:6}}/>
+          <div style={{width:1,height:24,background:"rgba(255,255,255,.08)"}}/>
+          <div style={{fontSize:10,color:"#64748b",textAlign:"center",lineHeight:1.4}}>
+            <div style={{fontWeight:700,color:"#94a3b8"}}>8</div>
+            <div style={{letterSpacing:.5}}>Modules</div>
           </div>
-          {/* Rest 2x2 */}
-          {[{icon:"💊",label:"Drug Doses",color:"#0ea5e9"},{icon:"💧",label:"Infusion Calc",color:"#10b981"},{icon:"🫁",label:"Airway Guide",color:"#ef4444"},{icon:"🚨",label:"Crisis",color:"#8b5cf6"}].map(m=>(
-            <div key={m.label} style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:14,padding:"14px",textAlign:"left",backdropFilter:"blur(10px)"}}>
-              <div style={{fontSize:22,marginBottom:6}}>{m.icon}</div>
-              <div style={{fontSize:12,fontWeight:700,color:"#f1f5f9"}}>{m.label}</div>
-              <div style={{width:24,height:2,background:m.color,borderRadius:2,marginTop:6}}/>
+        </div>
+
+        {/* ── MODULE CARDS ── */}
+        <div style={{width:"100%",display:"flex",flexDirection:"column",gap:10,marginBottom:14}}>
+
+          {/* SOPs */}
+          <div className="hs5 home-card-3d" onClick={()=>setActive("sop")}
+            style={{background:"linear-gradient(135deg,rgba(22,163,74,.16),rgba(22,163,74,.06))",border:"1px solid rgba(74,222,128,.2)",borderRadius:18,padding:"16px 18px",boxShadow:"0 8px 32px rgba(22,163,74,.12)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:14}}>
+              <div style={{width:46,height:46,borderRadius:14,background:"linear-gradient(135deg,rgba(22,163,74,.3),rgba(22,163,74,.15))",border:"1px solid rgba(74,222,128,.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0,boxShadow:"0 0 16px rgba(22,163,74,.2)"}}>📑</div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:14,fontWeight:800,color:"#bbf7d0",marginBottom:3}}>Standard Operating Procedures</div>
+                <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                  {["OT Flow","Regional","Spinal"].map(t=><span key={t} style={{fontSize:9,background:"rgba(74,222,128,.12)",color:"#4ade80",border:"1px solid rgba(74,222,128,.2)",borderRadius:20,padding:"2px 8px",fontWeight:700}}>{t}</span>)}
+                </div>
+              </div>
+              <div style={{width:30,height:30,borderRadius:10,background:"rgba(74,222,128,.15)",border:"1px solid rgba(74,222,128,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#4ade80",fontSize:16,flexShrink:0}}>›</div>
             </div>
-          ))}
+          </div>
+
+          {/* PAE */}
+          <div className="hs5 home-card-3d" onClick={()=>setActive("pae")}
+            style={{background:"linear-gradient(135deg,rgba(6,182,212,.14),rgba(6,182,212,.05))",border:"1px solid rgba(56,189,248,.2)",borderRadius:18,padding:"16px 18px",boxShadow:"0 8px 32px rgba(6,182,212,.1)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:14}}>
+              <div style={{width:46,height:46,borderRadius:14,background:"linear-gradient(135deg,rgba(6,182,212,.3),rgba(6,182,212,.12))",border:"1px solid rgba(56,189,248,.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0,boxShadow:"0 0 16px rgba(6,182,212,.2)"}}>🩺</div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:14,fontWeight:800,color:"#a5f3fc",marginBottom:3}}>Pre-Anaesthetic Evaluation</div>
+                <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                  {["H&P","Examination","Investigations","Consent"].map(t=><span key={t} style={{fontSize:9,background:"rgba(56,189,248,.1)",color:"#38bdf8",border:"1px solid rgba(56,189,248,.2)",borderRadius:20,padding:"2px 8px",fontWeight:700}}>{t}</span>)}
+                </div>
+              </div>
+              <div style={{width:30,height:30,borderRadius:10,background:"rgba(56,189,248,.12)",border:"1px solid rgba(56,189,248,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#38bdf8",fontSize:16,flexShrink:0}}>›</div>
+            </div>
+          </div>
+
+          {/* Guide */}
+          <div className="hs5 home-card-3d" onClick={()=>setActive("guide")}
+            style={{background:"linear-gradient(135deg,rgba(233,30,140,.14),rgba(233,30,140,.05))",border:"1px solid rgba(244,114,182,.2)",borderRadius:18,padding:"16px 18px",boxShadow:"0 8px 32px rgba(233,30,140,.1)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:14}}>
+              <div style={{width:46,height:46,borderRadius:14,background:"linear-gradient(135deg,rgba(233,30,140,.28),rgba(233,30,140,.1))",border:"1px solid rgba(244,114,182,.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0,boxShadow:"0 0 16px rgba(233,30,140,.18)"}}>📚</div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:14,fontWeight:800,color:"#f9a8d4",marginBottom:3}}>Anaesthesia Guide</div>
+                <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                  {["Types","Decision Tree","Body Map","Compare"].map(t=><span key={t} style={{fontSize:9,background:"rgba(244,114,182,.1)",color:"#f472b6",border:"1px solid rgba(244,114,182,.2)",borderRadius:20,padding:"2px 8px",fontWeight:700}}>{t}</span>)}
+                </div>
+              </div>
+              <div style={{width:30,height:30,borderRadius:10,background:"rgba(244,114,182,.12)",border:"1px solid rgba(244,114,182,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#f472b6",fontSize:16,flexShrink:0}}>›</div>
+            </div>
+          </div>
+
+          {/* Pre-op Risk */}
+          <div className="hs5 home-card-3d" onClick={()=>setActive("preop")}
+            style={{background:"linear-gradient(135deg,rgba(245,158,11,.14),rgba(245,158,11,.05))",border:"1px solid rgba(251,191,36,.2)",borderRadius:18,padding:"16px 18px",boxShadow:"0 8px 32px rgba(245,158,11,.1)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:14}}>
+              <div style={{width:46,height:46,borderRadius:14,background:"linear-gradient(135deg,rgba(245,158,11,.28),rgba(245,158,11,.1))",border:"1px solid rgba(251,191,36,.3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0,boxShadow:"0 0 16px rgba(245,158,11,.18)"}}>📋</div>
+              <div style={{flex:1}}>
+                <div style={{fontSize:14,fontWeight:800,color:"#fde68a",marginBottom:3}}>Pre-op Risk Assessment</div>
+                <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                  {["ASA","DASI","RCRI","MET","Mallampati"].map(t=><span key={t} style={{fontSize:9,background:"rgba(251,191,36,.1)",color:"#fbbf24",border:"1px solid rgba(251,191,36,.2)",borderRadius:20,padding:"2px 8px",fontWeight:700}}>{t}</span>)}
+                </div>
+              </div>
+              <div style={{width:30,height:30,borderRadius:10,background:"rgba(251,191,36,.12)",border:"1px solid rgba(251,191,36,.25)",display:"flex",alignItems:"center",justifyContent:"center",color:"#fbbf24",fontSize:16,flexShrink:0}}>›</div>
+            </div>
+          </div>
+
+          {/* 2x2 quick tools */}
+          <div className="hs6" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+            {[
+              {icon:"💊",label:"Drug Doses",sub:"Induction · Maintenance",c:"#0ea5e9",id:"drugs"},
+              {icon:"💧",label:"Infusion Calc",sub:"Rates · Dilutions",c:"#10b981",id:"infusion"},
+              {icon:"💨",label:"Airway",sub:"Assessment · Devices",c:"#ef4444",id:"airway"},
+              {icon:"🚨",label:"Crisis",sub:"Algorithms",c:"#8b5cf6",id:"crisis"},
+            ].map(m=>(
+              <div key={m.id} className="home-card-3d" onClick={()=>setActive(m.id)}
+                style={{background:`linear-gradient(135deg,${m.c}14,${m.c}05)`,border:`1px solid ${m.c}28`,borderRadius:16,padding:"14px 14px",boxShadow:`0 6px 24px ${m.c}12`}}>
+                <div style={{width:36,height:36,borderRadius:11,background:`${m.c}20`,border:`1px solid ${m.c}35`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,marginBottom:8,boxShadow:`0 0 12px ${m.c}20`}}>{m.icon}</div>
+                <div style={{fontSize:12,fontWeight:800,color:"#f1f5f9",marginBottom:2}}>{m.label}</div>
+                <div style={{fontSize:9,color:"#475569",lineHeight:1.4}}>{m.sub}</div>
+                <div style={{width:22,height:2,background:`linear-gradient(90deg,${m.c},${m.c}50)`,borderRadius:2,marginTop:10}}/>
+              </div>
+            ))}
+          </div>
         </div>
-        <button onClick={()=>setActive("sop")} style={{width:"100%",padding:"16px",borderRadius:16,border:"none",cursor:"pointer",background:"linear-gradient(135deg,#16a34a,#15803d)",color:"#fff",fontSize:16,fontWeight:800,fontFamily:"'Nunito',sans-serif",boxShadow:"0 8px 24px rgba(22,163,74,0.4)",marginBottom:10}}>Open SOPs →</button>
-        <button onClick={()=>setActive("drugs")} style={{width:"100%",padding:"12px",borderRadius:16,border:"none",cursor:"pointer",background:"linear-gradient(135deg,#0ea5e9,#0284c7)",color:"#fff",fontSize:14,fontWeight:700,fontFamily:"'Nunito',sans-serif",boxShadow:"0 6px 18px rgba(14,165,233,0.35)"}}>Browse All Modules →</button>
-        <div style={{marginTop:16,fontSize:11,color:"#334155",lineHeight:1.8}}>For educational purposes only · Not for clinical decision-making<br/>Based on Morgan & Mikhail · Miller's Anaesthesia · DAS/ASA/AAGBI Guidelines</div>
+
+        {/* Footer */}
+        <div className="hs7" style={{textAlign:"center",fontSize:10,lineHeight:2}}>
+          <span style={{color:"#ef4444",fontWeight:700}}>⚠</span>{" "}
+          <span style={{color:"#334155"}}>Educational only · Not for clinical use</span><br/>
+          <span style={{color:"#1e293b"}}>Morgan &amp; Mikhail · Miller's · Stoelting's</span>
+        </div>
       </div>
     </div>
   </>);
-  const mod=MOD_META.find(m=>m.id===active)||MOD_META[0];const Comp=COMPS[active]||DrugModule;
+    const mod=MOD_META.find(m=>m.id===active)||MOD_META[0];const Comp=COMPS[active]||DrugModule;
   return(<>
     <style>{STYLE}</style>
-    <div style={{minHeight:"100vh",background:T.bg,fontFamily:"'Nunito',sans-serif",color:T.text}}>
-      <div style={{background:"#fff",borderBottom:`1.5px solid ${T.border}`,position:"sticky",top:0,zIndex:100,boxShadow:"0 2px 8px rgba(0,0,0,0.06)"}}>
-        <div style={{maxWidth:820,margin:"0 auto",padding:"10px 16px",display:"flex",alignItems:"center",gap:12}}>
+    <div style={{minHeight:"100vh",background:dark?"#060b14":T.bg,fontFamily:"'Nunito',sans-serif",color:T.text,position:"relative"}}>
+      {/* Ambient bg glow matching home */}
+      <div style={{position:"fixed",inset:0,background:dark?"radial-gradient(ellipse 70% 40% at 10% 0%,rgba(14,165,233,.07) 0%,transparent 55%),radial-gradient(ellipse 50% 30% at 90% 100%,rgba(139,92,246,.05) 0%,transparent 55%)":"none",pointerEvents:"none",zIndex:0}}/>
+      {/* ── Sticky Nav ── */}
+      <div style={{background:dark?"rgba(6,11,20,.9)":T.card,backdropFilter:"blur(24px)",WebkitBackdropFilter:"blur(24px)",borderBottom:dark?"1px solid rgba(255,255,255,.07)":`1px solid ${T.border}`,position:"sticky",top:0,zIndex:100,boxShadow:dark?"0 4px 32px rgba(0,0,0,.5)":"0 2px 8px rgba(0,0,0,.06)"}}>
+        <div style={{maxWidth:820,margin:"0 auto",padding:"10px 16px",display:"flex",alignItems:"center",gap:10}}>
           <button onClick={()=>setActive("home")} style={{display:"flex",alignItems:"center",gap:8,background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>
-            <div style={{width:32,height:32,borderRadius:8,background:"linear-gradient(135deg,#0ea5e9,#0284c7)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,boxShadow:"0 2px 8px rgba(14,165,233,0.3)"}}>⚕️</div>
-            <div style={{textAlign:"left"}}><div style={{fontSize:13,fontWeight:900,color:T.text,letterSpacing:-0.3}}>Anaesthesia<span style={{color:"#0ea5e9"}}>Hub</span></div><div style={{fontSize:8,color:T.muted,letterSpacing:1.5,textTransform:"uppercase",fontWeight:600}}>by Dr. Meghana</div></div>
+            <div style={{width:32,height:32,borderRadius:9,background:"linear-gradient(135deg,#0ea5e9,#0284c7)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,boxShadow:"0 2px 12px rgba(14,165,233,.4)"}}>⚕️</div>
+            <div><div style={{fontSize:13,fontWeight:900,color:T.text,letterSpacing:-.3}}>Anaesthesia<span style={{color:"#0ea5e9"}}>Hub</span></div><div style={{fontSize:8,color:T.muted,letterSpacing:1.5,textTransform:"uppercase",fontWeight:600}}>Dr. Meghana</div></div>
           </button>
           <div style={{flex:1}}/>
-          <span style={{fontSize:9,color:T.danger,background:"#fff5f5",border:"1.5px solid #fca5a5",padding:"3px 8px",borderRadius:6,letterSpacing:0.5,fontWeight:700,flexShrink:0}}>⚠ EDU ONLY</span>
+          <button onClick={()=>setDark(d=>!d)} style={{background:dark?"rgba(255,255,255,.07)":"#f1f5f9",border:dark?"1px solid rgba(255,255,255,.1)":"1.5px solid #e2e8f0",borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:11,fontWeight:700,color:dark?"#94a3b8":"#475569",flexShrink:0,fontFamily:"Nunito,sans-serif",marginRight:6}}>{dark?"☀️ Light":"🌙 Dark"}</button>
+          <span style={{fontSize:9,color:"#ef4444",background:dark?"rgba(239,68,68,.12)":"#fff5f5",border:dark?"1px solid rgba(239,68,68,.25)":"1.5px solid #fca5a5",padding:"3px 8px",borderRadius:6,letterSpacing:.5,fontWeight:700,flexShrink:0}}>⚠ EDU</span>
         </div>
-        <div style={{maxWidth:820,margin:"0 auto",display:"flex",overflowX:"auto",borderTop:`1px solid ${T.border}`}}>
-          {MOD_META.map(m=><button key={m.id} onClick={()=>setActive(m.id)} style={{flex:1,minWidth:64,display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"8px 4px",border:"none",cursor:"pointer",background:"transparent",borderBottom:active===m.id?`3px solid ${m.color}`:"3px solid transparent",transition:"all 0.18s"}}>
-            <span style={{fontSize:17}}>{m.icon}</span><span style={{fontSize:10,fontWeight:active===m.id?800:500,color:active===m.id?m.color:T.sub,whiteSpace:"nowrap"}}>{m.label}</span>
-          </button>)}
+        {/* Module tabs */}
+        <div style={{maxWidth:820,margin:"0 auto",display:"flex",overflowX:"auto",borderTop:dark?"1px solid rgba(255,255,255,.06)":`1px solid ${T.border}`}}>
+          {MOD_META.map(m=>(
+            <button key={m.id} onClick={()=>setActive(m.id)} style={{flex:1,minWidth:58,display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"8px 4px",border:"none",cursor:"pointer",background:active===m.id?(dark?`${m.color}18`:`${m.color}0e`):"transparent",borderBottom:active===m.id?`2.5px solid ${m.color}`:"2.5px solid transparent",transition:"all .18s"}}>
+              <span style={{fontSize:16}}>{m.icon}</span>
+              <span style={{fontSize:9,fontWeight:active===m.id?800:500,color:active===m.id?m.color:T.sub,whiteSpace:"nowrap"}}>{m.label}</span>
+            </button>
+          ))}
         </div>
       </div>
-      <div style={{background:`linear-gradient(135deg,${mod.bg},${mod.bg}80)`,borderBottom:`1.5px solid ${mod.color}25`,padding:"12px 16px"}}>
-        <div style={{maxWidth:820,margin:"0 auto",display:"flex",alignItems:"center",gap:10}}>
-          <span style={{fontSize:22}}>{mod.icon}</span>
-          <div><div style={{fontSize:16,fontWeight:900,color:T.text}}>{mod.label}</div><div style={{fontSize:10,color:mod.dark,fontWeight:600}}>Module {MOD_META.findIndex(m=>m.id===active)+1} of 8</div></div>
+      {/* ── Module Banner ── */}
+      <div style={{background:dark?`linear-gradient(135deg,${mod.color}18,${mod.color}07)`:`linear-gradient(135deg,${mod.bg},${mod.bg}80)`,borderBottom:dark?`1px solid ${mod.color}28`:`1.5px solid ${mod.color}25`,padding:"13px 16px",position:"relative",overflow:"hidden"}}>
+        {dark&&<div style={{position:"absolute",inset:0,background:`radial-gradient(ellipse 50% 100% at 95% 50%,${mod.color}12,transparent)`,pointerEvents:"none"}}/>}
+        <div style={{maxWidth:820,margin:"0 auto",display:"flex",alignItems:"center",gap:12,position:"relative"}}>
+          <div style={{width:44,height:44,borderRadius:13,background:dark?`${mod.color}22`:`${mod.color}18`,border:`1px solid ${mod.color}45`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:21,flexShrink:0,boxShadow:dark?`0 0 24px ${mod.color}22`:"none"}}>{mod.icon}</div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:16,fontWeight:900,color:dark?"#f1f5f9":T.text,letterSpacing:-.3}}>{mod.label}</div>
+            <div style={{fontSize:10,color:dark?mod.color:mod.dark,fontWeight:600,marginTop:1,opacity:.8}}>Module {MOD_META.findIndex(m=>m.id===active)+1} of 8</div>
+          </div>
+          <div style={{fontSize:11,color:dark?mod.color:mod.dark,fontWeight:800,background:dark?`${mod.color}18`:`${mod.color}12`,padding:"4px 12px",borderRadius:20,border:`1px solid ${mod.color}30`,flexShrink:0}}>{MOD_META.findIndex(m=>m.id===active)+1}/8</div>
         </div>
       </div>
-      <div style={{maxWidth:820,margin:"0 auto",padding:"16px 14px 80px"}}><Comp/></div>
-      <div style={{borderTop:`1.5px solid ${T.border}`,padding:"14px 16px",textAlign:"center",background:"#fff"}}>
+      {/* ── Content ── */}
+      <div style={{maxWidth:820,margin:"0 auto",padding:"16px 14px 80px",position:"relative",zIndex:1}}><Comp/></div>
+      <div style={{borderTop:`1px solid ${T.border}`,padding:"14px 16px",textAlign:"center",background:T.card}}>
         <div style={{fontSize:11,color:T.muted,lineHeight:2}}>
-          <strong style={{color:T.sub}}>AnaesthesiaHub v4.3</strong> · Created by <strong style={{color:"#0ea5e9"}}>Dr. Meghana</strong> · Anaesthesia PG<br/>
+          <strong style={{color:T.sub}}>AnaesthesiaHub v5.0</strong> · Created by <strong style={{color:"#0ea5e9"}}>Dr. Meghana</strong> · Anaesthesia PG<br/>
           Morgan & Mikhail · Miller's Anaesthesia · DAS / ASA / AAGBI Guidelines<br/>
           <span style={{color:T.danger,fontWeight:700}}>⚠ NOT for clinical decision-making without senior supervision</span>
         </div>
@@ -688,37 +938,124 @@ const NPO_GUIDELINES = [
   { item:"Medications (oral)", fast:"Take with sip of water up to 1h before", col:"#06b6d4", note:"Antihypertensives (continue), statins (continue), beta-blockers (continue). HOLD: metformin (on day of surgery), ACEi/ARB (discuss), SGLT2i (48h before major surgery — DKA risk)." },
 ];
 
+const DASI_ITEMS=[
+  {id:"d1",l:"Take care of yourself (eating, dressing, bathing, using toilet)?",mets:2.75},
+  {id:"d2",l:"Walk indoors, such as around the house?",mets:1.75},
+  {id:"d3",l:"Walk a block or two on level ground (1–2 km/hr)?",mets:2.75},
+  {id:"d4",l:"Climb a flight of stairs or walk up a hill?",mets:5.50},
+  {id:"d5",l:"Run a short distance?",mets:8.00},
+  {id:"d6",l:"Do light housework (dusting, washing dishes)?",mets:2.70},
+  {id:"d7",l:"Do moderate housework (vacuuming, scrubbing floors, carrying groceries)?",mets:3.50},
+  {id:"d8",l:"Do heavy housework (scrubbing floors, lifting heavy furniture)?",mets:8.00},
+  {id:"d9",l:"Do yard work (raking leaves, weeding, pushing lawn mower)?",mets:4.50},
+  {id:"d10",l:"Have sexual relations?",mets:5.25},
+  {id:"d11",l:"Participate in moderate recreational activities (golf, bowling, dancing, doubles tennis)?",mets:6.00},
+  {id:"d12",l:"Participate in strenuous recreational activities (swimming, singles tennis, football, basketball, skiing)?",mets:7.50},
+];
+function dasiInterp(score){
+  if(score>=34)return{l:"Excellent Functional Capacity",r:"≥ 10 METs",col:"#22c55e",a:"Proceed to surgery. No further cardiac testing required. Excellent perioperative prognosis."};
+  if(score>=22)return{l:"Good Functional Capacity",r:"7–10 METs",col:"#84cc16",a:"Generally safe to proceed. Non-invasive testing only if it changes management."};
+  if(score>=14)return{l:"Moderate Functional Capacity",r:"4–7 METs",col:"#eab308",a:"Consider cardiology review for high-risk surgery. May tolerate intermediate-risk procedures."};
+  if(score>0)return{l:"Poor Functional Capacity",r:"< 4 METs",col:"#ef4444",a:"High perioperative cardiac risk. Mandatory cardiology review. Optimise before elective major surgery."};
+  return null;
+}
+
 function PAEModule(){
   const [sec,setSec]=useState("history");const [hData,setHData]=useState({});const [exChk,setExChk]=useState({});const [invSel,setInvSel]=useState(null);const [invOpen,setInvOpen]=useState({});const [planData,setPlanData]=useState({});const [npoOpen,setNpoOpen]=useState({});const [conOpen,setConOpen]=useState({});
+  const [dasiChk,setDasiChk]=useState({});const [dasiOpen,setDasiOpen]=useState(false);
   const col=PAE_COLOR;
   const SECS=[{id:"history",l:"H&P",i:"📝"},{id:"exam",l:"Examination",i:"🩺"},{id:"investigations",l:"Investigations",i:"🔬"},{id:"plan",l:"Anaes Plan",i:"💡"},{id:"consent",l:"Consent",i:"✍️"},{id:"npo",l:"NPO/Fasting",i:"🍽️"}];
 
   return(<div className="fade">
     <div style={{display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4}}>
-      {SECS.map(s=><button key={s.id} onClick={()=>setSec(s.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 13px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:sec===s.id?col:"#fff",color:sec===s.id?"#fff":T.sub,boxShadow:sec===s.id?`0 4px 12px ${col}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{s.i} {s.l}</button>)}
+      {SECS.map(s=><button key={s.id} onClick={()=>setSec(s.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 13px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:sec===s.id?col:T.card,color:sec===s.id?"#fff":T.sub,boxShadow:sec===s.id?`0 4px 12px ${col}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s"}}>{s.i} {s.l}</button>)}
     </div>
 
     {/* HISTORY */}
-    {sec==="history"&&<div className="fade">
+    {sec==="history"&&<div className="fade tab-content">
       <Card color={col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>📝 Pre-Anaesthetic History & Physical</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>Systematic history taking — Emergency + Elective</div>
       </div></Card>
-      {PAE_HISTORY.map((sec,si)=><Card key={si} style={{marginBottom:10}}>
-        <div style={{padding:"12px 16px 0"}}><div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${sec.col}15`,border:`1px solid ${sec.col}30`,borderRadius:20,padding:"4px 12px",marginBottom:10}}><span style={{fontSize:11,fontWeight:700,color:sec.col}}>{sec.sec}</span></div></div>
-        <div style={{padding:"0 12px 12px",display:"flex",flexDirection:"column",gap:8}}>
-          {sec.fields.map((f,fi)=>{const k=`${si}-${fi}`;return(<div key={fi}>
-            <div style={{fontSize:10,color:T.muted,fontWeight:700,textTransform:"uppercase",letterSpacing:0.5,marginBottom:3}}>{f.l}</div>
-            <textarea value={hData[k]||""} onChange={e=>setHData(p=>({...p,[k]:e.target.value}))} placeholder={f.ph} rows={2}
-              style={{width:"100%",padding:"8px 10px",borderRadius:8,border:`1.5px solid ${hData[k]?sec.col+"60":T.border}`,background:hData[k]?`${sec.col}05`:T.faint,fontSize:11,color:T.text,resize:"vertical",outline:"none",fontFamily:"'Nunito',sans-serif",lineHeight:1.5}}/>
-          </div>);})}
-        </div>
-      </Card>)}
-      <button onClick={()=>setHData({})} style={{padding:"7px 18px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Clear All</button>
+      {PAE_HISTORY.map((section,si)=>{
+        const isSocial=section.sec==="Social History";
+        const dasiScore=DASI_ITEMS.reduce((a,it)=>a+(dasiChk[it.id]?it.mets:0),0);
+        const dasiRes=dasiInterp(dasiScore);
+        return(<Card key={si} style={{marginBottom:10}}>
+          <div style={{padding:"12px 16px 0"}}><div style={{display:"inline-flex",alignItems:"center",gap:6,background:`${section.col}15`,border:`1px solid ${section.col}30`,borderRadius:20,padding:"4px 12px",marginBottom:10}}><span style={{fontSize:11,fontWeight:700,color:section.col}}>{section.sec}</span></div></div>
+          <div style={{padding:"0 12px 12px",display:"flex",flexDirection:"column",gap:8}}>
+            {section.fields.map((f,fi)=>{
+              const k=`${si}-${fi}`;
+              if(isSocial&&f.l==="Functional capacity"){
+                return(<div key={fi}>
+                  <div style={{fontSize:10,color:T.muted,fontWeight:700,textTransform:"uppercase",letterSpacing:0.5,marginBottom:6}}>🏃 Functional Capacity — DASI Calculator</div>
+                  {/* Collapsed toggle */}
+                  <div onClick={()=>setDasiOpen(p=>!p)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 12px",borderRadius:10,background:dasiScore>0?`#06b6d410`:"#f8fafc",border:`1.5px solid ${dasiScore>0?"#06b6d450":T.border}`,cursor:"pointer",marginBottom:dasiOpen?8:0}}>
+                    <div style={{display:"flex",alignItems:"center",gap:10}}>
+                      <div>
+                        <div style={{fontSize:11,fontWeight:700,color:dasiScore>0?"#06b6d4":T.sub}}>{dasiScore>0?`DASI: ${dasiScore.toFixed(2)} → Est. ${(0.43*dasiScore+9.6).toFixed(1)} METs`:"Tap to open DASI questionnaire"}</div>
+                        {dasiRes&&<div style={{fontSize:10,fontWeight:700,color:dasiRes.col,marginTop:1}}>{dasiRes.l}</div>}
+                      </div>
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:8}}>
+                      {dasiScore>0&&<span style={{fontSize:10,fontWeight:800,color:dasiRes?.col,background:`${dasiRes?.col}15`,border:`1px solid ${dasiRes?.col}40`,borderRadius:6,padding:"2px 8px"}}>{dasiRes?.r}</span>}
+                      <span style={{fontSize:12,color:T.muted,transform:dasiOpen?"rotate(180deg)":"none",transition:"transform 0.2s"}}>▼</span>
+                    </div>
+                  </div>
+                  {dasiOpen&&<div className="fade" style={{border:`1.5px solid #06b6d430`,borderRadius:10,overflow:"hidden"}}>
+                    {/* Score header */}
+                    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 12px",background:"#06b6d410",borderBottom:`1px solid #06b6d420`}}>
+                      <div>
+                        <div style={{fontSize:9,color:T.muted,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>DASI Score</div>
+                        <div style={{fontSize:20,fontWeight:900,color:"#06b6d4",fontFamily:"'JetBrains Mono',monospace",lineHeight:1}}>{dasiScore.toFixed(2)}<span style={{fontSize:10,color:T.muted,fontWeight:400}}> / 58.2</span></div>
+                      </div>
+                      <div style={{textAlign:"right"}}>
+                        <div style={{fontSize:9,color:T.muted,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>Est. VO₂ / METs</div>
+                        <div style={{fontSize:20,fontWeight:900,color:dasiRes?dasiRes.col:T.muted,fontFamily:"'JetBrains Mono',monospace",lineHeight:1}}>{dasiScore>0?(0.43*dasiScore+9.6).toFixed(1):"–"} <span style={{fontSize:10,color:T.muted,fontWeight:400}}>METs</span></div>
+                      </div>
+                    </div>
+                    <div style={{padding:"6px 10px 2px"}}><ProgressBar value={dasiScore} max={58.2} color={dasiRes?dasiRes.col:"#06b6d4"} height={5}/></div>
+                    {/* Note */}
+                    <div style={{padding:"6px 12px 0",fontSize:10,color:T.muted,fontStyle:"italic"}}>Ask: "Can you do this activity without stopping due to chest pain, breathlessness or palpitations?"</div>
+                    {/* Activities */}
+                    <div style={{padding:"8px 10px",display:"flex",flexDirection:"column",gap:5}}>
+                      {DASI_ITEMS.map((it,idx)=><label key={it.id} onClick={()=>setDasiChk(p=>({...p,[it.id]:!p[it.id]}))} style={{display:"flex",alignItems:"flex-start",gap:8,padding:"8px 10px",borderRadius:8,cursor:"pointer",background:dasiChk[it.id]?"#06b6d40f":"#f8fafc",border:`1.5px solid ${dasiChk[it.id]?"#06b6d450":T.border}`,transition:"all 0.12s"}}>
+                        <div style={{width:16,height:16,borderRadius:4,flexShrink:0,marginTop:1,background:dasiChk[it.id]?"#06b6d4":T.card,border:`2px solid ${dasiChk[it.id]?"#06b6d4":T.borderDark}`,display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.12s"}}>
+                          {dasiChk[it.id]&&<span style={{fontSize:9,color:"#fff",fontWeight:900,lineHeight:1}}>✓</span>}
+                        </div>
+                        <div style={{flex:1}}>
+                          <div style={{fontSize:11,fontWeight:dasiChk[it.id]?700:400,color:dasiChk[it.id]?T.text:T.sub,lineHeight:1.4}}>{idx+1}. {it.l}</div>
+                          <div style={{fontSize:9,color:"#06b6d4",fontWeight:700,marginTop:1}}>{it.mets} METs</div>
+                        </div>
+                      </label>)}
+                    </div>
+                    {/* Result */}
+                    {dasiRes&&<div style={{margin:"0 10px 10px",padding:"10px 12px",borderRadius:10,background:`${dasiRes.col}0d`,border:`1.5px solid ${dasiRes.col}35`}}>
+                      <div style={{fontSize:12,fontWeight:800,color:dasiRes.col,marginBottom:4}}>{dasiRes.l} — {dasiRes.r}</div>
+                      <div style={{fontSize:11,color:T.sub,lineHeight:1.6,borderLeft:`3px solid ${dasiRes.col}`,paddingLeft:8}}>{dasiRes.a}</div>
+                      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginTop:8}}>
+                        {[{r:"< 4",c:"#ef4444",l:"Poor"},{r:"4–7",c:"#eab308",l:"Moderate"},{r:"7–10",c:"#84cc16",l:"Good"},{r:"≥ 10",c:"#22c55e",l:"Excellent"}].map(m=><div key={m.r} style={{background:`${m.c}15`,border:`1px solid ${m.c}40`,borderRadius:6,padding:"3px 7px",fontSize:9,fontWeight:700,color:m.c}}>{m.l} {m.r} METs</div>)}
+                      </div>
+                    </div>}
+                    {!dasiRes&&dasiScore===0&&<div style={{padding:"8px 12px 12px",textAlign:"center",fontSize:11,color:T.muted}}>Tap activities above to calculate score</div>}
+                    <div style={{padding:"0 10px 10px"}}><button onClick={()=>setDasiChk({})} style={{padding:"5px 12px",borderRadius:8,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:11,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset DASI</button></div>
+                  </div>}
+                </div>);
+              }
+              return(<div key={fi}>
+                <div style={{fontSize:10,color:T.muted,fontWeight:700,textTransform:"uppercase",letterSpacing:0.5,marginBottom:3}}>{f.l}</div>
+                <textarea value={hData[k]||""} onChange={e=>setHData(p=>({...p,[k]:e.target.value}))} placeholder={f.ph} rows={2}
+                  style={{width:"100%",padding:"8px 10px",borderRadius:8,border:`1.5px solid ${hData[k]?section.col+"60":T.border}`,background:hData[k]?`${section.col}05`:T.faint,fontSize:11,color:T.text,resize:"vertical",outline:"none",fontFamily:"'Nunito',sans-serif",lineHeight:1.5}}/>
+              </div>);
+            })}
+          </div>
+        </Card>);
+      })}
+      <button onClick={()=>setHData({})} style={{padding:"7px 18px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Clear All</button>
     </div>}
 
     {/* EXAMINATION */}
-    {sec==="exam"&&<div className="fade">
+    {sec==="exam"&&<div className="fade tab-content">
       <Card color={col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>🩺 Systematic Pre-op Examination</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>Tick each item as you complete it</div>
@@ -736,11 +1073,11 @@ function PAEModule(){
             {sec.items.map((item,ii)=><CheckItem key={ii} label={item.l} sub={item.sub} checked={!!exChk[`${si}-${ii}`]} onToggle={()=>setExChk(p=>({...p,[`${si}-${ii}`]:!p[`${si}-${ii}`]}))} color={sec.col}/>)}
           </div>
         </Card>);})}
-      <button onClick={()=>setExChk({})} style={{padding:"7px 18px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset</button>
+      <button onClick={()=>setExChk({})} style={{padding:"7px 18px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset</button>
     </div>}
 
     {/* INVESTIGATIONS */}
-    {sec==="investigations"&&<div className="fade">
+    {sec==="investigations"&&<div className="fade tab-content">
       <Card color={col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>🔬 Investigation Interpreter</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>Tap any test to see normal ranges + clinical significance</div>
@@ -751,7 +1088,7 @@ function PAEModule(){
         </Card>)}
       </div>}
       {invSel!==null&&<div className="fade">
-        <button onClick={()=>setInvSel(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:12,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:"#fff",color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← All Tests</button>
+        <button onClick={()=>setInvSel(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:12,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:T.card,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← All Tests</button>
         <Card color={PAE_INVESTIGATIONS[invSel].col} style={{marginBottom:10}}><div style={{padding:"14px 16px"}}><div style={{fontSize:17,fontWeight:900,color:T.text}}>{PAE_INVESTIGATIONS[invSel].name}</div></div></Card>
         {PAE_INVESTIGATIONS[invSel].params.map((p,pi)=>{const k=`inv-${invSel}-${pi}`;return(
           <Card key={pi} style={{marginBottom:8}} onClick={()=>setInvOpen(prev=>({...prev,[k]:!prev[k]}))}>
@@ -768,7 +1105,7 @@ function PAEModule(){
     </div>}
 
     {/* ANAESTHESIA PLAN */}
-    {sec==="plan"&&<div className="fade">
+    {sec==="plan"&&<div className="fade tab-content">
       <Card color={col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>💡 Anaesthesia Plan Generator</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>Select your choices to build the anaesthetic plan</div>
@@ -779,7 +1116,7 @@ function PAEModule(){
           <div style={{fontSize:12,fontWeight:800,color:T.text,marginBottom:10}}>{labels[key]}</div>
           <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
             {opts.map(opt=>{const sel=planData[key]===opt;return(
-              <button key={opt} onClick={()=>setPlanData(p=>({...p,[key]:sel?null:opt}))} style={{padding:"6px 12px",borderRadius:20,border:`1.5px solid ${sel?col+"60":T.border}`,background:sel?`${col}15`:"#fff",color:sel?col:T.sub,fontSize:11,fontWeight:sel?700:500,cursor:"pointer",transition:"all 0.15s",fontFamily:"'Nunito',sans-serif"}}>{opt}</button>
+              <button key={opt} onClick={()=>setPlanData(p=>({...p,[key]:sel?null:opt}))} style={{padding:"6px 12px",borderRadius:20,border:`1.5px solid ${sel?col+"60":T.border}`,background:sel?`${col}15`:T.card,color:sel?col:T.sub,fontSize:11,fontWeight:sel?700:500,cursor:"pointer",transition:"all 0.15s",fontFamily:"'Nunito',sans-serif"}}>{opt}</button>
             );})}
           </div>
         </div></Card>);})}
@@ -795,11 +1132,11 @@ function PAEModule(){
           {planData.airway==="Awake FOI"?<WarnBox text="Awake FOI: Topicalise airway (lignocaine 4% nebulised ± spray-as-you-go). Dexmedetomidine or midazolam sedation. Senior support." color="#f59e0b"/>:null}
         </div>
       </div></Card>}
-      <button onClick={()=>setPlanData({})} style={{marginTop:10,padding:"7px 18px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset Plan</button>
+      <button onClick={()=>setPlanData({})} style={{marginTop:10,padding:"7px 18px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset Plan</button>
     </div>}
 
     {/* CONSENT */}
-    {sec==="consent"&&<div className="fade">
+    {sec==="consent"&&<div className="fade tab-content">
       <Card color={col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>✍️ Consent Points & Risk Communication</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>Use these to guide your pre-op anaesthetic consent discussion</div>
@@ -823,7 +1160,7 @@ function PAEModule(){
     </div>}
 
     {/* NPO */}
-    {sec==="npo"&&<div className="fade">
+    {sec==="npo"&&<div className="fade tab-content">
       <Card color={col} style={{marginBottom:12}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>🍽️ Fasting Guidelines (NPO)</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>Evidence-based — AAGBI / ASA / ESAIC guidelines</div>
@@ -839,7 +1176,7 @@ function PAEModule(){
         </div>
         {npoOpen[i]&&<div style={{padding:"0 16px 14px 80px",fontSize:11,color:T.sub,lineHeight:1.7}} className="fade">{item.note}</div>}
       </Card>)}
-      <Card style={{marginTop:4,background:"#f0fdf4",border:"1.5px solid #86efac"}}><div style={{padding:"14px 16px"}}>
+      <Card style={{marginTop:4,background:T.faint,border:"1.5px solid #86efac"}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:13,fontWeight:800,color:"#166534",marginBottom:8}}>💊 Day of Surgery — Medications</div>
         {[["✅ CONTINUE","Antihypertensives (esp. beta-blockers, clonidine), statins, levothyroxine, antiepileptics, inhalers, PPIs, immunosuppressants","#22c55e"],["⛔ HOLD","Metformin (day of surgery), ACEi/ARBs (morning of — discuss with anaesthetist), SGLT2 inhibitors (48h before major surgery — risk of euglycaemic DKA)","#ef4444"],["⚠️ DISCUSS","Warfarin (check INR, bridge if needed), DOACs (last dose timing per renal function), Aspirin (continue most cases, stop if high bleeding risk), Herbal supplements (stop 1 week before)","#f59e0b"]].map(([l,t,c])=><div key={l} style={{marginBottom:8,padding:"8px 10px",borderRadius:8,background:c+"0f",border:`1px solid ${c}30`}}><div style={{fontSize:10,color:c,fontWeight:800,letterSpacing:0.5,marginBottom:3}}>{l}</div><div style={{fontSize:11,color:T.sub,lineHeight:1.6}}>{t}</div></div>)}
       </div></Card>
@@ -996,7 +1333,7 @@ const OT_PHASES = [
     tip:"'Deep extubation' (before full awakening) reduces coughing but requires expert skill. Standard = awake extubation with all criteria met."
   },
   {
-    id:"extubation", icon:"🫁", title:"Extubation",
+    id:"extubation", icon:"💨", title:"Extubation",
     col:"#ef4444", bg:"#fee2e2",
     desc:"Safe removal of the airway device after confirming all extubation criteria met.",
     checks:[
@@ -1076,7 +1413,7 @@ function OTFlowModule(){
 
         return(<div key={phase.id} style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
           {/* Phase Card */}
-          <div style={{width:"100%",borderRadius:16,border:`2px solid ${allDone?col+"80":isOpen?phase.col+"60":T.border}`,background:allDone?`${col}06`:isOpen?`${phase.col}06`:"#fff",overflow:"hidden",boxShadow:isOpen?`0 4px 20px ${phase.col}20`:"0 1px 4px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
+          <div style={{width:"100%",borderRadius:16,border:`2px solid ${allDone?col+"80":isOpen?phase.col+"60":T.border}`,background:allDone?`${col}06`:isOpen?`${phase.col}06`:T.card,overflow:"hidden",boxShadow:isOpen?`0 4px 20px ${phase.col}20`:"0 1px 4px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
             {/* Phase Header */}
             <div onClick={()=>setActive(isOpen?null:phase.id)} style={{display:"flex",alignItems:"center",gap:12,padding:"14px 16px",cursor:"pointer"}}>
               <div style={{width:44,height:44,borderRadius:12,background:`${phase.col}20`,border:`2px solid ${phase.col}50`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{phase.icon}</div>
@@ -1164,7 +1501,7 @@ function OTFlowModule(){
                       <th style={{padding:"8px 6px",textAlign:"center",color:"#f59e0b",fontWeight:800,borderBottom:`2px solid ${phase.col}30`}}>1</th>
                       <th style={{padding:"8px 6px",textAlign:"center",color:"#ef4444",fontWeight:800,borderBottom:`2px solid ${phase.col}30`}}>0</th>
                     </tr></thead>
-                    <tbody>{phase.aldrete.map((row,ri)=><tr key={ri} style={{borderBottom:`1px solid ${T.border}`,background:ri%2===0?"#f8fafc":"#fff"}}>
+                    <tbody>{phase.aldrete.map((row,ri)=><tr key={ri} style={{borderBottom:`1px solid ${T.border}`,background:ri%2===0?T.faint:T.card}}>
                       <td style={{padding:"8px 10px",color:T.sub,lineHeight:1.4}}>{row.crit}</td>
                       <td style={{padding:"8px 6px",textAlign:"center",color:phase.col,fontWeight:700}}>{row.full}</td>
                       <td style={{padding:"8px 6px",textAlign:"center",color:"#f59e0b",fontWeight:700}}>{row.part}</td>
@@ -1202,7 +1539,7 @@ function OTFlowModule(){
     </div>
 
     <div style={{display:"flex",gap:10,marginTop:16}}>
-      <button onClick={()=>setChk({})} style={{flex:1,padding:"10px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
+      <button onClick={()=>setChk({})} style={{flex:1,padding:"10px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
       <button onClick={()=>setActive(null)} style={{flex:1,padding:"10px",borderRadius:10,background:`${col}15`,border:`1.5px solid ${col}40`,color:col,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↑ Collapse All</button>
     </div>
   </div>);
@@ -1535,7 +1872,7 @@ function RegionalModule(){
         const allDone=donePh===phase.checks.length;
 
         return(<div key={phase.id} style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
-          <div style={{width:"100%",borderRadius:16,border:`2px solid ${allDone?col+"80":isOpen?phase.col+"60":T.border}`,background:allDone?`${col}06`:isOpen?`${phase.col}06`:"#fff",overflow:"hidden",boxShadow:isOpen?`0 4px 20px ${phase.col}20`:"0 1px 4px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
+          <div style={{width:"100%",borderRadius:16,border:`2px solid ${allDone?col+"80":isOpen?phase.col+"60":T.border}`,background:allDone?`${col}06`:isOpen?`${phase.col}06`:T.card,overflow:"hidden",boxShadow:isOpen?`0 4px 20px ${phase.col}20`:"0 1px 4px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
             {/* Header row */}
             <div onClick={()=>setOpenPhase(isOpen?null:phase.id)} style={{display:"flex",alignItems:"center",gap:12,padding:"14px 16px",cursor:"pointer"}}>
               <div style={{width:44,height:44,borderRadius:12,background:`${phase.col}20`,border:`2px solid ${phase.col}50`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{phase.icon}</div>
@@ -1668,7 +2005,7 @@ function RegionalModule(){
     </div>
 
     <div style={{display:"flex",gap:10,marginTop:16}}>
-      <button onClick={()=>setChk({})} style={{flex:1,padding:"10px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
+      <button onClick={()=>setChk({})} style={{flex:1,padding:"10px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
       <button onClick={()=>setOpenPhase(null)} style={{flex:1,padding:"10px",borderRadius:10,background:`${col}15`,border:`1.5px solid ${col}40`,color:col,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↑ Collapse All</button>
     </div>
   </div>);
@@ -2095,7 +2432,7 @@ function SpinalModule(){
           const isLast=pi===grp.ids.length-1&&gi===PHASE_GROUPS.length-1;
 
           return(<div key={phase.id} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
-            <div style={{width:"100%",borderRadius:16,border:`2px solid ${allDone?col+"80":isOpen?phase.col+"60":T.border}`,background:allDone?`${col}06`:isOpen?`${phase.col}06`:"#fff",overflow:"hidden",boxShadow:isOpen?`0 4px 20px ${phase.col}20`:"0 1px 4px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
+            <div style={{width:"100%",borderRadius:16,border:`2px solid ${allDone?col+"80":isOpen?phase.col+"60":T.border}`,background:allDone?`${col}06`:isOpen?`${phase.col}06`:T.card,overflow:"hidden",boxShadow:isOpen?`0 4px 20px ${phase.col}20`:"0 1px 4px rgba(0,0,0,0.06)",transition:"all 0.2s"}}>
               <div onClick={()=>setOpenPhase(isOpen?null:phase.id)} style={{display:"flex",alignItems:"center",gap:12,padding:"14px 16px",cursor:"pointer"}}>
                 <div style={{width:44,height:44,borderRadius:12,background:`${phase.col}20`,border:`2px solid ${phase.col}50`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{phase.icon}</div>
                 <div style={{flex:1}}>
@@ -2287,7 +2624,7 @@ function SpinalModule(){
     </div>
 
     <div style={{display:"flex",gap:10,marginTop:16}}>
-      <button onClick={()=>setChk({})} style={{flex:1,padding:"10px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
+      <button onClick={()=>setChk({})} style={{flex:1,padding:"10px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↺ Reset All</button>
       <button onClick={()=>setOpenPhase(null)} style={{flex:1,padding:"10px",borderRadius:10,background:`${col}15`,border:`1.5px solid ${col}40`,color:col,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>↑ Collapse All</button>
     </div>
   </div>);
@@ -2304,7 +2641,7 @@ const SOP_TABS = [
 function SOPModule(){
   const [sopTab,setSopTab]=useState(null);
   if(!sopTab) return(
-    <div className="fade">
+    <div className="fade tab-content">
       <Card color="#16a34a" style={{marginBottom:14}}><div style={{padding:"14px 16px"}}>
         <div style={{fontSize:17,fontWeight:900,color:T.text}}>📑 Standard Operating Procedures</div>
         <div style={{fontSize:11,color:T.sub,marginTop:2}}>3 procedural SOPs — select one to begin</div>
@@ -2330,11 +2667,11 @@ function SOPModule(){
   const meta=SOP_TABS.find(s=>s.id===sopTab);
   return(
     <div className="fade">
-      <button onClick={()=>setSopTab(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:12,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:"#fff",color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← All SOPs</button>
+      <button onClick={()=>setSopTab(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:12,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:T.card,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← All SOPs</button>
       {/* Sub-tab switcher */}
       <div style={{display:"flex",gap:6,marginBottom:14,overflowX:"auto",paddingBottom:2}}>
         {SOP_TABS.map(s=>(
-          <button key={s.id} onClick={()=>setSopTab(s.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 14px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:sopTab===s.id?s.color:"#fff",color:sopTab===s.id?"#fff":T.sub,boxShadow:sopTab===s.id?`0 4px 12px ${s.color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s",fontFamily:"'Nunito',sans-serif"}}>{s.icon} {s.label}</button>
+          <button key={s.id} onClick={()=>setSopTab(s.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 14px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:12,fontWeight:700,background:sopTab===s.id?s.color:T.card,color:sopTab===s.id?"#fff":T.sub,boxShadow:sopTab===s.id?`0 4px 12px ${s.color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s",fontFamily:"'Nunito',sans-serif"}}>{s.icon} {s.label}</button>
         ))}
       </div>
       <Comp/>
@@ -2348,7 +2685,7 @@ function SOPModule(){
 /*  Compare Table · Interactive Steps                          */
 /* ──────────────────────────────────────────────────────────── */
 const GUIDE_TYPES=[
-  {key:"general",icon:"🫁",short:"GA",name:"General Anaesthesia",color:"#4fc3f7",risk:"Moderate",riskC:"#ff7043",desc:"Complete unconsciousness with full airway control. For major, complex, or prolonged surgery.",mechanism:"IV induction + inhalational/TIVA maintenance. Causes amnesia, analgesia, muscle relaxation, unconsciousness.",use:["Prolonged procedures (>2–3 hours)","Major body cavity: brain, chest, abdomen","Patient unable to cooperate","Prone/complex positioning","Patient refuses regional technique","Emergency surgery with full stomach (RSI)"],avoid:["Malignant hyperthermia history (use TIVA)","Predicted difficult airway without backup","Severe cardiorespiratory compromise"],agents:["Propofol","Sevoflurane","Fentanyl","Rocuronium","Remifentanil","Isoflurane"],procedures:["Cardiac Surgery","Craniotomy","Thoracotomy","Major Laparotomy","Paediatric Surgery","Major Trauma","Robotic Surgery"]},
+  {key:"general",icon:"💨",short:"GA",name:"General Anaesthesia",color:"#4fc3f7",risk:"Moderate",riskC:"#ff7043",desc:"Complete unconsciousness with full airway control. For major, complex, or prolonged surgery.",mechanism:"IV induction + inhalational/TIVA maintenance. Causes amnesia, analgesia, muscle relaxation, unconsciousness.",use:["Prolonged procedures (>2–3 hours)","Major body cavity: brain, chest, abdomen","Patient unable to cooperate","Prone/complex positioning","Patient refuses regional technique","Emergency surgery with full stomach (RSI)"],avoid:["Malignant hyperthermia history (use TIVA)","Predicted difficult airway without backup","Severe cardiorespiratory compromise"],agents:["Propofol","Sevoflurane","Fentanyl","Rocuronium","Remifentanil","Isoflurane"],procedures:["Cardiac Surgery","Craniotomy","Thoracotomy","Major Laparotomy","Paediatric Surgery","Major Trauma","Robotic Surgery"]},
   {key:"spinal",icon:"💉",short:"SA",name:"Spinal Anaesthesia",color:"#ef5350",risk:"Low",riskC:"#66bb6a",desc:"Single intrathecal injection at L3–L4. Dense, reliable block. Fast onset, time-limited.",mechanism:"Local anaesthetic in CSF blocks spinal nerve roots. Affects sensory, motor and autonomic fibres below injection.",use:["Caesarean section (preferred)","Hip & knee replacement","TURP / Cystoscopy","Inguinal & perineal surgery","Elderly/high GA-risk patients","Procedures <3 hours"],avoid:["Coagulopathy (INR>1.5, Plt<80k)","Infection at injection site","Raised intracranial pressure","Severe hypovolaemia","Fixed cardiac output states"],agents:["Hyperbaric Bupivacaine 0.5%","Fentanyl (adjuvant)","Morphine (adjuvant)","Phenylephrine (prophylaxis)"],procedures:["Caesarean Section","Hip Replacement","Knee Replacement","TURP","Inguinal Hernia","Haemorrhoidectomy","Cystoscopy"]},
   {key:"epidural",icon:"🩺",short:"EA",name:"Epidural Anaesthesia",color:"#ab47bc",risk:"Low",riskC:"#66bb6a",desc:"Catheter-based continuous block. Titratable, ideal for labour and prolonged procedures.",mechanism:"Local anaesthetic in epidural space diffuses across dura. Slower onset than spinal but continuous via catheter.",use:["Labour analgesia (gold standard)","Thoracotomy (thoracic epidural)","Major abdominal surgery","Prolonged surgery with post-op pain","ERAS protocols","Chronic pain management"],avoid:["Anticoagulant therapy (ASRA timing rules)","Sepsis / systemic infection","Severe scoliosis / prior lumbar fusion","Coagulopathy"],agents:["Bupivacaine 0.1–0.5%","Ropivacaine 0.2%","Fentanyl 2mcg/mL","Clonidine","Epinephrine"],procedures:["Labour Analgesia","Thoracotomy","Open Colectomy","Hepatic Resection","Open Prostatectomy","Postop Pain (catheter)"]},
   {key:"regional",icon:"📡",short:"RB",name:"Regional / Nerve Block",color:"#26a69a",risk:"Low",riskC:"#42a5f5",desc:"Ultrasound-guided targeted nerve block. Excellent for limb surgery and opioid-sparing analgesia.",mechanism:"US-guided LA deposition around target nerve. Blocks Na+ channels → prevents action potential propagation.",use:["Upper limb (brachial plexus)","Lower limb (femoral, sciatic, popliteal)","Shoulder (interscalene)","Opioid-sparing ERAS","Outpatient/day surgery","Adjunct to GA for analgesia"],avoid:["Allergy to local anaesthetics","Infection at injection site","Significant pre-existing neuropathy at target","Patient refusal","Tumour distorting anatomy"],agents:["Ropivacaine 0.2–0.5%","Bupivacaine 0.25–0.5%","Dexamethasone (adjuvant)","Lignocaine 1–2%","Dexmedetomidine"],procedures:["Shoulder Surgery","Hand Surgery","Knee Arthroscopy","Ankle Surgery","Mastectomy","Rib Fractures","Below-Knee Amputation"]},
@@ -2392,7 +2729,7 @@ const GUIDE_COMPARE=[
   {label:"Best For",           vals:["Major/complex","Lower body","Labour/thorax","Limb surgery","Minor/skin","Scopes/imaging"]},
 ];
 const GUIDE_QUESTIONS=[
-  {id:"q1",text:"Where is the surgery?",opts:[{l:"🧠 Head / Brain / Neck",n:"q_head"},{l:"🫁 Chest / Thorax",n:"q_chest"},{l:"🫃 Abdomen / Pelvis",n:"q_abdomen"},{l:"💪 Upper Limb / Shoulder",n:"q_upper"},{l:"🦵 Lower Limb / Hip–Foot",n:"q_lower"},{l:"🩹 Skin / Surface / Minor",r:"local"}]},
+  {id:"q1",text:"Where is the surgery?",opts:[{l:"🧠 Head / Brain / Neck",n:"q_head"},{l:"💨 Chest / Thorax",n:"q_chest"},{l:"🫃 Abdomen / Pelvis",n:"q_abdomen"},{l:"💪 Upper Limb / Shoulder",n:"q_upper"},{l:"🦵 Lower Limb / Hip–Foot",n:"q_lower"},{l:"🩹 Skin / Surface / Minor",r:"local"}]},
   {id:"q_head",text:"What type of head/neck procedure?",opts:[{l:"Neurosurgery / Craniotomy",r:"general"},{l:"ENT / Airway Surgery",r:"general"},{l:"Awake Craniotomy",r:"sedation"},{l:"Cataract / Eye (cooperative adult)",r:"sedation"},{l:"Major Eye / Paediatric Eye",r:"general"},{l:"Dental / Oral Minor",r:"local"}]},
   {id:"q_chest",text:"What chest procedure?",opts:[{l:"Thoracotomy / Lung Resection",r:"general"},{l:"VATS (keyhole thoracic)",r:"general"},{l:"Rib fracture pain control",r:"regional"},{l:"Mastectomy / Breast surgery",r:"regional"},{l:"Cardiac Surgery",r:"general"}]},
   {id:"q_abdomen",text:"What abdominal/pelvic procedure?",opts:[{l:"Major open laparotomy",r:"general"},{l:"Laparoscopic surgery",r:"general"},{l:"Caesarean section",r:"spinal"},{l:"Perineal / rectal surgery",r:"spinal"},{l:"TURP / Cystoscopy",r:"spinal"},{l:"Inguinal hernia",n:"q_hernia"},{l:"GI Endoscopy (scope)",r:"sedation"}]},
@@ -2405,9 +2742,9 @@ const GUIDE_QUESTIONS=[
 const GUIDE_PHASES=[
   {id:"preop",label:"📋 Pre-op",title:"Pre-operative Assessment",color:"#4fc3f7",steps:[{icon:"📝",t:"Medical History Review",d:"Allergies, past surgeries, chronic conditions, family history of anaesthesia complications (MH)."},{icon:"💊",t:"Medication Review",d:"Current meds including supplements, blood thinners (LMWH, warfarin, NOACs). ASRA guidelines for regional."},{icon:"🍽️",t:"NPO Guidelines",d:"Fasting: 6–8 hrs solids, 4 hrs breast milk, 2 hrs clear fluids. ERAS allows carbohydrate drinks up to 2hrs pre-op."},{icon:"🦷",t:"Airway Assessment",d:"Mallampati score, mouth opening, neck mobility, thyromental distance. Plan for difficult airway if needed."},{icon:"📊",t:"ASA Classification",d:"ASA I (normal) to VI (brain-dead donor). Determines monitoring level and anaesthetic risk."},{icon:"✍️",t:"Informed Consent",d:"Explain planned technique, alternatives, risks, benefits. Document patient understanding and agreement."}]},
   {id:"premed",label:"💊 Premedication",title:"Premedication",color:"#ab47bc",steps:[{icon:"😌",t:"Anxiolysis",d:"Midazolam 1–2mg IV (adult). Reduces anxiety, provides amnesia, reduces induction dose requirements."},{icon:"🤢",t:"Anti-emetic Prophylaxis",d:"Ondansetron 4mg IV + Dexamethasone 4–8mg. PONV high-risk: triple therapy."},{icon:"😮‍💨",t:"Antisialagogue",d:"Glycopyrrolate 0.2mg IM/IV. Reduces secretions. Important for awake fibreoptic intubation."},{icon:"💊",t:"Pre-emptive Analgesia",d:"Paracetamol 1g IV + Celecoxib 400mg PO. Reduces postoperative pain and opioid requirements (ERAS)."},{icon:"🩸",t:"Antacid / Aspiration Prevention",d:"Ranitidine 150mg PO or Sodium citrate 30mL PO (full stomach/obstetric). Raises gastric pH."}]},
-  {id:"induction",label:"💉 Induction",title:"Anaesthetic Induction",color:"#ef5350",steps:[{icon:"🫁",t:"Pre-oxygenation",d:"100% O₂ via face mask for 3–5 minutes. Extends safe apnoea time."},{icon:"💉",t:"IV Induction Agent",d:"Propofol 1.5–2.5mg/kg IV. Consciousness lost in 30–60 seconds. Count backward from 10."},{icon:"🩺",t:"Opioid",d:"Fentanyl 1–2mcg/kg blunts laryngoscopy response. Remifentanil for infusion (shorter-acting)."},{icon:"💪",t:"Muscle Relaxant",d:"Succinylcholine 1.5mg/kg (RSI) or Rocuronium 0.6–1.2mg/kg. Allows intubation and relaxation for surgery."},{icon:"🔦",t:"Airway Secured",d:"ETT inserted via laryngoscopy. Position confirmed: capnography (EtCO₂) + bilateral auscultation."},{icon:"⚙️",t:"Ventilator Set",d:"Lung-protective: TV 6–8mL/kg IBW, PEEP 5cmH₂O, RR 12/min. FiO₂ to maintain SpO₂ >95%."}]},
+  {id:"induction",label:"💉 Induction",title:"Anaesthetic Induction",color:"#ef5350",steps:[{icon:"💨",t:"Pre-oxygenation",d:"100% O₂ via face mask for 3–5 minutes. Extends safe apnoea time."},{icon:"💉",t:"IV Induction Agent",d:"Propofol 1.5–2.5mg/kg IV. Consciousness lost in 30–60 seconds. Count backward from 10."},{icon:"🩺",t:"Opioid",d:"Fentanyl 1–2mcg/kg blunts laryngoscopy response. Remifentanil for infusion (shorter-acting)."},{icon:"💪",t:"Muscle Relaxant",d:"Succinylcholine 1.5mg/kg (RSI) or Rocuronium 0.6–1.2mg/kg. Allows intubation and relaxation for surgery."},{icon:"🔦",t:"Airway Secured",d:"ETT inserted via laryngoscopy. Position confirmed: capnography (EtCO₂) + bilateral auscultation."},{icon:"⚙️",t:"Ventilator Set",d:"Lung-protective: TV 6–8mL/kg IBW, PEEP 5cmH₂O, RR 12/min. FiO₂ to maintain SpO₂ >95%."}]},
   {id:"maintenance",label:"🔬 Maintenance",title:"Maintenance & Monitoring",color:"#26a69a",steps:[{icon:"💨",t:"Volatile Agent",d:"Sevoflurane/Isoflurane/Desflurane via vaporiser. MAC tracks potency. Titrate to BIS 40–60."},{icon:"💊",t:"IV Adjuncts",d:"Fentanyl boluses for pain. Rocuronium top-ups for relaxation. Vasopressors for haemodynamics."},{icon:"🧠",t:"BIS Monitoring",d:"Bispectral Index 40–60 = surgical anaesthesia. Prevents awareness. EEG-derived algorithm."},{icon:"🩸",t:"Fluid Management",d:"Crystalloid 1–5mL/kg/hr. Blood if Hb <7g/dL (or <8 in cardiac). Transfuse to goal-directed endpoints."},{icon:"🌡️",t:"Temperature",d:"Prevent hypothermia: warming blanket, warmed IV fluids. Target ≥36.5°C."},{icon:"⚡",t:"NMT Monitoring",d:"Train-of-four monitoring ensures adequate neuromuscular blockade and guides reversal timing."}]},
-  {id:"emergence",label:"🌅 Emergence",title:"Emergence & Extubation",color:"#ffa726",steps:[{icon:"⏹️",t:"Agents Discontinued",d:"Turn off volatile agent or stop propofol infusion. Inhaled concentration decreases via fresh gas flow."},{icon:"🔄",t:"Neuromuscular Reversal",d:"Neostigmine + glycopyrrolate OR Sugammadex (rocuronium reversal). TOF ratio >0.9 before extubation."},{icon:"👁️",t:"Return of Consciousness",d:"Patient follows commands, opens eyes, breathes spontaneously. Protective reflexes confirmed."},{icon:"🫁",t:"Extubation",d:"Cuff deflated, tube removed during deep breath. Supplemental O₂ applied. Watch for laryngospasm."},{icon:"🚑",t:"PACU Transfer",d:"Portable monitoring en route. Verbal handoff: procedure, agents, blood loss, complications, analgesic plan."}]},
+  {id:"emergence",label:"🌅 Emergence",title:"Emergence & Extubation",color:"#ffa726",steps:[{icon:"⏹️",t:"Agents Discontinued",d:"Turn off volatile agent or stop propofol infusion. Inhaled concentration decreases via fresh gas flow."},{icon:"🔄",t:"Neuromuscular Reversal",d:"Neostigmine + glycopyrrolate OR Sugammadex (rocuronium reversal). TOF ratio >0.9 before extubation."},{icon:"👁️",t:"Return of Consciousness",d:"Patient follows commands, opens eyes, breathes spontaneously. Protective reflexes confirmed."},{icon:"💨",t:"Extubation",d:"Cuff deflated, tube removed during deep breath. Supplemental O₂ applied. Watch for laryngospasm."},{icon:"🚑",t:"PACU Transfer",d:"Portable monitoring en route. Verbal handoff: procedure, agents, blood loss, complications, analgesic plan."}]},
   {id:"recovery",label:"🏥 Recovery",title:"Post-op Recovery (PACU)",color:"#66bb6a",steps:[{icon:"📊",t:"Aldrete Scoring",d:"Activity, Respiration, Circulation, Consciousness, SpO₂ — each 0–2. Score ≥9 required for discharge."},{icon:"😣",t:"Pain Management",d:"Multimodal: paracetamol + NSAIDs + opioids (if needed) + nerve blocks. Target NRS ≤3/10."},{icon:"🤢",t:"PONV Treatment",d:"Ondansetron 4mg + Dexamethasone (if not given). Metoclopramide rescue. TIVA reduces baseline risk."},{icon:"🥶",t:"Hypothermia",d:"Warming blanket. Pethidine 12.5–25mg IV for shivering. Target temperature ≥36.5°C before discharge."},{icon:"😵",t:"Emergence Delirium",d:"Agitation on waking — more common in children and elderly. Small propofol bolus or dexmedetomidine."},{icon:"✅",t:"Discharge Criteria",d:"Aldrete ≥9, pain controlled, no active bleeding, able to drink, escort arranged, written instructions given."}]},
 ];
 const GUIDE_BODY_SITES=[
@@ -2469,7 +2806,7 @@ function GuideModule(){
 
     {/* Tab bar */}
     <div style={{display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4}}>
-      {GUIDE_TABS.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 12px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:11,fontWeight:700,background:tab===t.id?col:"#fff",color:tab===t.id?"#fff":T.sub,boxShadow:tab===t.id?`0 4px 12px ${col}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s",fontFamily:"'Nunito',sans-serif"}}>{t.i} {t.l}</button>)}
+      {GUIDE_TABS.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 12px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:11,fontWeight:700,background:tab===t.id?col:T.card,color:tab===t.id?"#fff":T.sub,boxShadow:tab===t.id?`0 4px 12px ${col}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s",fontFamily:"'Nunito',sans-serif"}}>{t.i} {t.l}</button>)}
     </div>
 
     {/* ── TYPE GUIDE ── */}
@@ -2493,7 +2830,7 @@ function GuideModule(){
         </Card>)}
       </div>
       :<div className="fade">
-        <button onClick={()=>setSelType(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:"#fff",color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← All Types</button>
+        <button onClick={()=>setSelType(null)} style={{display:"flex",alignItems:"center",gap:6,marginBottom:14,padding:"7px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,background:T.card,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← All Types</button>
         {(()=>{const t=GUIDE_TYPES.find(x=>x.key===selType);return(<>
           <Card color={t.color} style={{marginBottom:12}}><div style={{padding:"16px"}}>
             <div style={{display:"flex",gap:12,alignItems:"center",marginBottom:10}}><span style={{fontSize:30}}>{t.icon}</span><div><div style={{fontSize:18,fontWeight:900,color:T.text}}>{t.name}</div><div style={{fontSize:11,color:T.sub}}>{t.mechanism}</div></div></div>
@@ -2519,16 +2856,16 @@ function GuideModule(){
           <div style={{fontSize:17,fontWeight:800,color:T.text,lineHeight:1.4}}>{curQData?.text}</div>
         </div></Card>
         <div style={{display:"flex",flexDirection:"column",gap:7}}>
-          {curQData?.opts.map((opt,i)=><button key={i} onClick={()=>pickOpt(opt)} style={{width:"100%",padding:"13px 16px",background:"#fff",border:`1.5px solid ${T.border}`,borderRadius:12,color:T.text,cursor:"pointer",fontSize:13,textAlign:"left",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all 0.15s",fontFamily:"'Nunito',sans-serif",fontWeight:600}}><span>{opt.l}</span><span style={{color:T.muted}}>→</span></button>)}
+          {curQData?.opts.map((opt,i)=><button key={i} onClick={()=>pickOpt(opt)} style={{width:"100%",padding:"13px 16px",background:T.card,border:`1.5px solid ${T.border}`,borderRadius:12,color:T.text,cursor:"pointer",fontSize:13,textAlign:"left",display:"flex",justifyContent:"space-between",alignItems:"center",transition:"all 0.15s",fontFamily:"'Nunito',sans-serif",fontWeight:600}}><span>{opt.l}</span><span style={{color:T.muted}}>→</span></button>)}
         </div>
-        {treeHistory.length>0&&<button onClick={treeBack} style={{marginTop:12,padding:"8px 16px",borderRadius:10,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← Back</button>}
+        {treeHistory.length>0&&<button onClick={treeBack} style={{marginTop:12,padding:"8px 16px",borderRadius:10,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:12,cursor:"pointer",fontFamily:"'Nunito',sans-serif",fontWeight:700}}>← Back</button>}
       </>:<div className="fade" style={{textAlign:"center"}}>
         <div style={{fontSize:52,marginBottom:12}}>{resultType?.icon}</div>
         <div style={{fontSize:24,fontWeight:900,color:resultType?.color,marginBottom:8}}>{resultType?.name}</div>
         <div style={{fontSize:13,color:T.sub,lineHeight:1.7,maxWidth:400,margin:"0 auto 20px"}}>{resultType?.desc}</div>
         <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
           <button onClick={resetTree} style={{padding:"10px 20px",borderRadius:12,background:resultType?.color,border:"none",color:"#fff",fontSize:13,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif"}}>Start Again</button>
-          <button onClick={()=>{setSelType(resultType?.key);setTab("types");}} style={{padding:"10px 20px",borderRadius:12,background:"#fff",border:`1.5px solid ${T.border}`,color:T.sub,fontSize:13,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif"}}>Full Details →</button>
+          <button onClick={()=>{setSelType(resultType?.key);setTab("types");}} style={{padding:"10px 20px",borderRadius:12,background:T.card,border:`1.5px solid ${T.border}`,color:T.sub,fontSize:13,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif"}}>Full Details →</button>
         </div>
       </div>}
     </div>}
@@ -2537,7 +2874,7 @@ function GuideModule(){
     {tab==="bodymap"&&<div className="fade">
       {/* Filter */}
       <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12}}>
-        {[["all","All"],["general","General"],["neuraxial","Neuraxial"],["regional","Regional"]].map(([f,l])=><button key={f} onClick={()=>{setMapFilter(f);setSelSite(null);}} style={{padding:"5px 14px",borderRadius:20,border:`1px solid ${mapFilter===f?col:T.border}`,background:mapFilter===f?`${col}15`:"#fff",color:mapFilter===f?col:T.sub,fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif",transition:"all 0.15s"}}>{l}</button>)}
+        {[["all","All"],["general","General"],["neuraxial","Neuraxial"],["regional","Regional"]].map(([f,l])=><button key={f} onClick={()=>{setMapFilter(f);setSelSite(null);}} style={{padding:"5px 14px",borderRadius:20,border:`1px solid ${mapFilter===f?col:T.border}`,background:mapFilter===f?`${col}15`:T.card,color:mapFilter===f?col:T.sub,fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif",transition:"all 0.15s"}}>{l}</button>)}
       </div>
       <div style={{display:"flex",gap:14,flexWrap:"wrap"}}>
         {/* SVG body */}
@@ -2568,7 +2905,7 @@ function GuideModule(){
           :<div className="fade">
             <div style={{marginBottom:10}}><div style={{fontSize:15,fontWeight:900,color:T.text}}>{siteDat.name}</div><div style={{fontSize:11,color:siteDat.color,fontWeight:700}}>{siteDat.typeName}</div></div>
             <div style={{display:"flex",gap:5,marginBottom:10}}>
-              {["steps","ops","drugs"].map(st=><button key={st} onClick={()=>setSiteTab(st)} style={{padding:"4px 10px",borderRadius:20,border:`1px solid ${siteTab===st?siteDat.color:T.border}`,background:siteTab===st?`${siteDat.color}15`:"#fff",color:siteTab===st?siteDat.color:T.sub,fontSize:10,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif",textTransform:"capitalize"}}>{st==="ops"?"Operations":st==="steps"?"Technique":"Drugs"}</button>)}
+              {["steps","ops","drugs"].map(st=><button key={st} onClick={()=>setSiteTab(st)} style={{padding:"4px 10px",borderRadius:20,border:`1px solid ${siteTab===st?siteDat.color:T.border}`,background:siteTab===st?`${siteDat.color}15`:T.card,color:siteTab===st?siteDat.color:T.sub,fontSize:10,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif",textTransform:"capitalize"}}>{st==="ops"?"Operations":st==="steps"?"Technique":"Drugs"}</button>)}
             </div>
             {siteTab==="steps"&&siteDat.steps.map((s,i)=><div key={i} style={{fontSize:11,color:T.sub,lineHeight:1.7,marginBottom:6,padding:"7px 10px",borderRadius:8,background:T.faint,border:`1px solid ${T.border}`}}>• {s}</div>)}
             {siteTab==="ops"&&<div style={{display:"flex",flexWrap:"wrap",gap:5}}>{siteDat.ops.map(o=><span key={o} style={{padding:"4px 10px",background:T.faint,border:`1px solid ${T.border}`,borderRadius:6,fontSize:11,color:T.sub}}>{o}</span>)}</div>}
@@ -2578,7 +2915,7 @@ function GuideModule(){
       </div>
       {/* Site list below */}
       <div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:12}}>
-        {filteredSites.map(s=><button key={s.id} onClick={()=>{setSelSite(s.id);setSiteTab("steps");}} style={{display:"flex",alignItems:"center",gap:6,padding:"5px 12px",borderRadius:20,border:`1.5px solid ${selSite===s.id?s.color:T.border}`,background:selSite===s.id?`${s.color}15`:"#fff",cursor:"pointer",fontSize:11,fontWeight:700,color:selSite===s.id?s.color:T.sub,fontFamily:"'Nunito',sans-serif",transition:"all 0.15s"}}>
+        {filteredSites.map(s=><button key={s.id} onClick={()=>{setSelSite(s.id);setSiteTab("steps");}} style={{display:"flex",alignItems:"center",gap:6,padding:"5px 12px",borderRadius:20,border:`1.5px solid ${selSite===s.id?s.color:T.border}`,background:selSite===s.id?`${s.color}15`:T.card,cursor:"pointer",fontSize:11,fontWeight:700,color:selSite===s.id?s.color:T.sub,fontFamily:"'Nunito',sans-serif",transition:"all 0.15s"}}>
           <span style={{width:8,height:8,borderRadius:"50%",background:s.color,display:"inline-block",flexShrink:0}}/>
           {s.name}
         </button>)}
@@ -2589,10 +2926,10 @@ function GuideModule(){
     {tab==="procedures"&&<div className="fade">
       <input value={procSearch} onChange={e=>setProcSearch(e.target.value)} placeholder="🔍 Search procedures..." style={{width:"100%",padding:"9px 14px",borderRadius:10,border:`1.5px solid ${T.border}`,fontSize:12,outline:"none",marginBottom:10,fontFamily:"'Nunito',sans-serif",background:T.faint}}/>
       <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:12}}>
-        {[["all","All"],["general","GA"],["spinal","Spinal"],["epidural","Epidural"],["regional","Regional"],["sedation","Sedation"],["local","Local"]].map(([f,l])=><button key={f} onClick={()=>setProcFilter(f)} style={{padding:"5px 12px",borderRadius:20,border:`1px solid ${procFilter===f?col:T.border}`,background:procFilter===f?`${col}15`:"#fff",color:procFilter===f?col:T.sub,fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif",transition:"all 0.15s"}}>{l}</button>)}
+        {[["all","All"],["general","GA"],["spinal","Spinal"],["epidural","Epidural"],["regional","Regional"],["sedation","Sedation"],["local","Local"]].map(([f,l])=><button key={f} onClick={()=>setProcFilter(f)} style={{padding:"5px 12px",borderRadius:20,border:`1px solid ${procFilter===f?col:T.border}`,background:procFilter===f?`${col}15`:T.card,color:procFilter===f?col:T.sub,fontSize:11,fontWeight:700,cursor:"pointer",fontFamily:"'Nunito',sans-serif",transition:"all 0.15s"}}>{l}</button>)}
       </div>
       <div style={{display:"flex",flexDirection:"column",gap:6}}>
-        {filtProcs.map((p,i)=>{const ty=GUIDE_TYPES.find(t=>t.key===p.type);return(<div key={i} style={{padding:"10px 14px",borderRadius:12,borderLeft:`4px solid ${ty?.color||"#ccc"}`,background:"#fff",border:`1px solid ${T.border}`,borderLeftWidth:4,borderLeftStyle:"solid",borderLeftColor:ty?.color||"#ccc"}}>
+        {filtProcs.map((p,i)=>{const ty=GUIDE_TYPES.find(t=>t.key===p.type);return(<div key={i} style={{padding:"10px 14px",borderRadius:12,borderLeft:`4px solid ${ty?.color||"#ccc"}`,background:T.card,border:`1px solid ${T.border}`,borderLeftWidth:4,borderLeftStyle:"solid",borderLeftColor:ty?.color||"#ccc"}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
             <div style={{fontSize:13,fontWeight:700,color:T.text}}>{p.proc}</div>
             <span style={{background:`${ty?.color}20`,color:ty?.color,border:`1px solid ${ty?.color}40`,borderRadius:6,padding:"2px 8px",fontSize:10,fontWeight:700,flexShrink:0,marginLeft:8}}>{ty?.short}</span>
@@ -2626,7 +2963,7 @@ function GuideModule(){
     {tab==="steps"&&<div className="fade">
       {/* Phase tabs */}
       <div style={{display:"flex",gap:5,marginBottom:14,overflowX:"auto",paddingBottom:4}}>
-        {GUIDE_PHASES.map(ph=><button key={ph.id} onClick={()=>setSelPhase(ph.id)} style={{display:"flex",alignItems:"center",gap:4,padding:"6px 12px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:11,fontWeight:700,background:selPhase===ph.id?ph.color:"#fff",color:selPhase===ph.id?"#fff":T.sub,boxShadow:selPhase===ph.id?`0 3px 10px ${ph.color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s",fontFamily:"'Nunito',sans-serif"}}>{ph.label}</button>)}
+        {GUIDE_PHASES.map(ph=><button key={ph.id} onClick={()=>setSelPhase(ph.id)} style={{display:"flex",alignItems:"center",gap:4,padding:"6px 12px",borderRadius:20,border:"none",cursor:"pointer",whiteSpace:"nowrap",fontSize:11,fontWeight:700,background:selPhase===ph.id?ph.color:T.card,color:selPhase===ph.id?"#fff":T.sub,boxShadow:selPhase===ph.id?`0 3px 10px ${ph.color}40`:"0 1px 3px rgba(0,0,0,0.08)",transition:"all 0.2s",fontFamily:"'Nunito',sans-serif"}}>{ph.label}</button>)}
       </div>
       {(()=>{const ph=GUIDE_PHASES.find(p=>p.id===selPhase);return(<div className="fade">
         <Card color={ph.color} style={{marginBottom:12}}><div style={{padding:"12px 16px"}}><div style={{fontSize:15,fontWeight:900,color:T.text}}>{ph.title}</div></div></Card>
